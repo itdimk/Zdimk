@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Zdimk.Domain.Entities
 {
@@ -11,6 +13,7 @@ namespace Zdimk.Domain.Entities
         public DateTimeOffset Created { get; set; }
         public bool IsPrivate { get; set; }
         public virtual User Owner { get; set; }
+        public virtual ICollection<Picture> Pictures { get; set; }
         public Guid OwnerId { get; set; }
         
     }

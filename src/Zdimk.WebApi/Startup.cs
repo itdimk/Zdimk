@@ -15,6 +15,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Zdimk.DataAccess;
+using Zdimk.Services.Configuration;
+using Zdimk.WebApi.Extensions;
 
 namespace Zdimk.WebApi
 {
@@ -29,12 +32,18 @@ namespace Zdimk.WebApi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<KestrelServerOptions>(Configuration.GetSection("Kestrel"));
+            services.Configure<PictureServiceOptions>(op => op.PictureFolderName = "images");
+            
             services.AddControllers();
             services.AddAuthorization();
-            services.Configure<KestrelServerOptions>(Configuration.GetSection("Kestrel"));
             services.AddSwaggerGen(opts => opts.SwaggerDoc("v1", new OpenApiInfo()));
-
             services.AddHttpContextAccessor();
+            services.AddPictureService();
+            
+            services.AddDbContext<ZdimkDbContext>(opts => opts
+                .UseNpgsql(Configuration.GetConnectionString("Default"))
+                .UseLazyLoadingProxies());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -11,6 +11,6 @@ namespace Zdimk.Domain.Entities
         public Guid PictureId { get; set; }
         
         public virtual  User Author { get; set; }
-        public Guid AuthorId { get; set; }
+        public string AuthorId { get; set; }
     }
 }

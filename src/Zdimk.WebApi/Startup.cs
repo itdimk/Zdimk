@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Zdimk.DataAccess;
+using Zdimk.Domain.Entities;
 using Zdimk.Services.Configuration;
 using Zdimk.WebApi.Extensions;
 
@@ -36,11 +37,10 @@ namespace Zdimk.WebApi
             services.Configure<PictureServiceOptions>(op => op.PictureFolderName = "images");
             
             services.AddControllers();
-            services.AddAuthorization();
             services.AddSwaggerGen(opts => opts.SwaggerDoc("v1", new OpenApiInfo()));
             services.AddHttpContextAccessor();
             services.AddPictureService();
-            
+            services.AddAuthorizationBundle<User>();
             services.AddDbContext<ZdimkDbContext>(opts => opts
                 .UseNpgsql(Configuration.GetConnectionString("Default"))
                 .UseLazyLoadingProxies());

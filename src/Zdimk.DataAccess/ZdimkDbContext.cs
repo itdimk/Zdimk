@@ -7,7 +7,7 @@ using Zdimk.Domain.Entities;
 
 namespace Zdimk.DataAccess
 {
-    public class ZdimkDbContext : IdentityUserContext<User, Guid>
+    public class ZdimkDbContext : IdentityUserContext<User>
     {
         public DbSet<Album> Albums { get; set; }
         public DbSet<Picture> Pictures { get; set; }

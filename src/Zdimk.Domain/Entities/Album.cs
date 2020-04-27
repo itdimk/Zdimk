@@ -14,7 +14,7 @@ namespace Zdimk.Domain.Entities
         public bool IsPrivate { get; set; }
         public virtual User Owner { get; set; }
         public virtual ICollection<Picture> Pictures { get; set; }
-        public Guid OwnerId { get; set; }
+        public string OwnerId { get; set; }
         
     }
 }

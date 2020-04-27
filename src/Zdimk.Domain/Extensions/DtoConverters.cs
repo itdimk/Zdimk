@@ -5,7 +5,7 @@ namespace Zdimk.Domain.Extensions
 {
     public static class DtoConverters
     {
-        public static UserPrivateDto ToUserPrivateDto(User user)
+        public static UserPrivateDto ToUserPrivateDto(this User user)
         {
             return new UserPrivateDto
             {
@@ -19,7 +19,7 @@ namespace Zdimk.Domain.Extensions
             };
         }
         
-        public static UserPublicDto ToUserPublicDto(User user)
+        public static UserPublicDto ToUserPublicDto(this User user)
         {
             return new UserPublicDto
             {

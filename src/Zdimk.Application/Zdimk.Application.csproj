@@ -6,9 +6,11 @@
 
     <ItemGroup>
       <PackageReference Include="MediatR" Version="8.0.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Zdimk.DataAccess\Zdimk.DataAccess.csproj" />
       <ProjectReference Include="..\Zdimk.Domain\Zdimk.Domain.csproj" />
     </ItemGroup>
 

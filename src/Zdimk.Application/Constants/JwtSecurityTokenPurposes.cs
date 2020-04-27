@@ -1,4 +1,4 @@
-﻿namespace Zdimk.Services.Constants
+﻿namespace Zdimk.Application.Constants
 {
     public static class JwtSecurityTokenPurposes
     {

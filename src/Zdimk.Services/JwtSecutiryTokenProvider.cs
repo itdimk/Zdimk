@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Zdimk.Application.Constants;
 using Zdimk.Services.Configuration;
-using Zdimk.Services.Constants;
 
 namespace Zdimk.Services
 {
@@ -16,9 +16,9 @@ namespace Zdimk.Services
     {
         private readonly JwtSecurityTokenOptions _options;
 
-        public JwtSecutiryTokenProvider(JwtSecurityTokenOptions options)
+        public JwtSecutiryTokenProvider(IOptions<JwtSecurityTokenOptions> options)
         {
-            _options = options;
+            _options = options.Value;
         }
 
         public async Task<string> GenerateAsync(string purpose, UserManager<TUser> manager, TUser user)

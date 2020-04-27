@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,7 +16,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Zdimk.Application.Commands;
 using Zdimk.DataAccess;
 using Zdimk.Domain.Entities;
 using Zdimk.Services.Configuration;
@@ -40,7 +44,21 @@ namespace Zdimk.WebApi
             services.AddSwaggerGen(opts => opts.SwaggerDoc("v1", new OpenApiInfo()));
             services.AddHttpContextAccessor();
             services.AddPictureService();
+            
+            services.AddMediatR(typeof(CreateUserCommand));
+            
             services.AddAuthorizationBundle<User>();
+            services.AddAuthenticationBundle(opt =>
+            {
+                opt.Issuer = Configuration["Jwt:Issuer"];
+                opt.Audience = Configuration["Jwt:Audience"];
+                opt.PrivateKey = Encoding.UTF8.GetBytes(Configuration["Jwt:PrivateKey"]);
+                opt.AccessTokenSigningAlgorithm = SecurityAlgorithms.HmacSha256Signature;
+                opt.RefreshTokenSigningAlgorithm = SecurityAlgorithms.HmacSha512Signature;
+                opt.AccessTokenLifetime = TimeSpan.FromMinutes(10.0);
+                opt.RefreshTokenLifetime = TimeSpan.FromDays(30.0);
+            });
+            
             services.AddDbContext<ZdimkDbContext>(opts => opts
                 .UseNpgsql(Configuration.GetConnectionString("Default"))
                 .UseLazyLoadingProxies());
@@ -60,6 +78,7 @@ namespace Zdimk.WebApi
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>  endpoints.MapControllers());
         }

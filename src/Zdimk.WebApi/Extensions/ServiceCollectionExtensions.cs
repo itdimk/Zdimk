@@ -46,7 +46,7 @@ namespace Zdimk.WebApi.Extensions
                         ValidateIssuerSigningKey = true,
                         
                         ValidIssuer = options.Issuer,
-                        ValidAudience = options.Audience,
+                        ValidAudience = options.AccessTokenAudience,
                         IssuerSigningKey = symmetricKey
                     };
                 });

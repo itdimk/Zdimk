@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -36,9 +37,25 @@ namespace Zdimk.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public Task<bool> ValidateAsync(string purpose, string token, UserManager<TUser> manager, TUser user)
+        public async Task<bool> ValidateAsync(string purpose, string token, UserManager<TUser> manager, TUser user)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var jwtHandler = new JwtSecurityTokenHandler();
+ 
+                jwtHandler.ValidateToken(token, new TokenValidationParameters()
+                {
+                    ValidIssuer = _options.Issuer,
+                    ValidAudience = GetValidAudience(purpose),
+                    IssuerSigningKey = new SymmetricSecurityKey(_options.PrivateKey)
+                }, out SecurityToken validatedToken);
+
+                return validatedToken != null;
+            }
+            catch (SecurityTokenException)
+            {
+                return false;
+            }
         }
 
         public Task<bool> CanGenerateTwoFactorTokenAsync(UserManager<TUser> manager, TUser user)
@@ -50,20 +67,43 @@ namespace Zdimk.Services
         {
             var signingCredentials = new SigningCredentials(key, _options.AccessTokenSigningAlgorithm);
 
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id)
+            };
+            
             return new JwtSecurityToken(
                 issuer: _options.Issuer,
-                audience: _options.Audience,
-                expires: DateTime.Now + _options.AccessTokenLifetime);
+                audience: _options.AccessTokenAudience,
+                claims: claims,
+                expires: DateTime.Now + _options.AccessTokenLifetime,
+                signingCredentials:signingCredentials);
         }
         
         private JwtSecurityToken GenerateRefreshToken(SymmetricSecurityKey key, UserManager<TUser> manager, TUser user)
         {
             var signingCredentials = new SigningCredentials(key, _options.RefreshTokenSigningAlgorithm);
 
+            var claims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id)
+            };
+            
             return new JwtSecurityToken(
                 issuer: _options.Issuer,
-                audience: _options.Audience,
-                expires: DateTime.Now + _options.RefreshTokenLifetime);
+                audience: _options.RefreshTokenAudience,
+                claims: claims,
+                expires: DateTime.Now + _options.RefreshTokenLifetime,
+                signingCredentials:signingCredentials);
+        }
+
+        private string GetValidAudience(string purpose)
+        {
+            if (purpose == JwtSecurityTokenPurposes.Access)
+                return _options.AccessTokenAudience;
+            if (purpose == JwtSecurityTokenPurposes.Refresh)
+                return _options.RefreshTokenAudience;
+            return null;
         }
     }
 }

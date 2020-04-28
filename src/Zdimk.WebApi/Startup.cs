@@ -51,7 +51,8 @@ namespace Zdimk.WebApi
             services.AddAuthenticationBundle(opt =>
             {
                 opt.Issuer = Configuration["Jwt:Issuer"];
-                opt.Audience = Configuration["Jwt:Audience"];
+                opt.AccessTokenAudience = Configuration["Jwt:AccessTokenAudience"];
+                opt.RefreshTokenAudience = Configuration["Jwt:RefreshTokenAudience"];
                 opt.PrivateKey = Encoding.UTF8.GetBytes(Configuration["Jwt:PrivateKey"]);
                 opt.AccessTokenSigningAlgorithm = SecurityAlgorithms.HmacSha256Signature;
                 opt.RefreshTokenSigningAlgorithm = SecurityAlgorithms.HmacSha512Signature;

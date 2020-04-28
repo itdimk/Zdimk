@@ -5,7 +5,8 @@ namespace Zdimk.Services.Configuration
     public class JwtSecurityTokenOptions
     {
         public string Issuer { get; set; }
-        public string Audience { get; set; }
+        public string AccessTokenAudience { get; set; }
+        public string RefreshTokenAudience { get; set; }
         public byte[] PrivateKey { get; set; }
         public string AccessTokenSigningAlgorithm { get; set; }
         public string RefreshTokenSigningAlgorithm { get; set; }

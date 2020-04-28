@@ -18,7 +18,7 @@ namespace Zdimk.Domain.Extensions
                 LastLoginDate = user.LastLoginDate
             };
         }
-        
+
         public static UserPublicDto ToUserPublicDto(this User user)
         {
             return new UserPublicDto
@@ -27,6 +27,18 @@ namespace Zdimk.Domain.Extensions
                 LastName = user.LastName,
                 UserName = user.UserName,
                 BirthDate = user.BirthDate,
+            };
+        }
+
+        public static AlbumDto ToAlbumDto(this Album album)
+        {
+            return new AlbumDto
+            {
+                Name = album.Name,
+                Description = album.Description,
+                Updated = album.Updated,
+                Created = album.Created,
+                IsPrivate = album.IsPrivate
             };
         }
     }

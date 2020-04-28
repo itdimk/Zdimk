@@ -2,7 +2,7 @@
 
 namespace Zdimk.Application.Commands
 {
-    public class ActivateJwtRefreshTokenCommand : IRequest
+    public class RegisterJwtRefreshTokenCommand : IRequest
     {
         public string RefreshToken { get; set; }
     }

@@ -15,9 +15,9 @@ namespace Zdimk.Services
     public class JwtSecutiryTokenProvider<TUser> : IUserTwoFactorTokenProvider<TUser>
         where TUser : IdentityUser
     {
-        private readonly JwtSecurityTokenOptions _options;
+        private readonly JwtTokenOptions _options;
 
-        public JwtSecutiryTokenProvider(IOptions<JwtSecurityTokenOptions> options)
+        public JwtSecutiryTokenProvider(IOptions<JwtTokenOptions> options)
         {
             _options = options.Value;
         }

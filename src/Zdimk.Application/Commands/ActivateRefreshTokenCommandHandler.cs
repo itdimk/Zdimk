@@ -13,13 +13,13 @@ using Zdimk.Domain.Entities;
 
 namespace Zdimk.Application.Commands
 {
-    public class RegisterRefreshTokenCommandHandler : IRequestHandler<RegisterJwtRefreshTokenCommand>
+    public class ActivateRefreshTokenCommandHandler : IRequestHandler<ActivateJwtRefreshTokenCommand>
     {
         private readonly UserManager<User> _userManager;
         private readonly ZdimkDbContext _dbContext;
         private readonly IHttpContextAccessor _httpContext;
 
-        public RegisterRefreshTokenCommandHandler(UserManager<User> userManager, ZdimkDbContext dbContext,
+        public ActivateRefreshTokenCommandHandler(UserManager<User> userManager, ZdimkDbContext dbContext,
             IHttpContextAccessor httpContext)
         {
             _userManager = userManager;
@@ -27,7 +27,7 @@ namespace Zdimk.Application.Commands
             _httpContext = httpContext;
         }
 
-        public async Task<Unit> Handle(RegisterJwtRefreshTokenCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ActivateJwtRefreshTokenCommand request, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
             
@@ -41,13 +41,14 @@ namespace Zdimk.Application.Commands
 
             if(tokens.Length > 5)
                 _dbContext.UserTokens.RemoveRange(tokens);
-            
+
             if (isValidToken)
             {
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Thumbprint, request.Thumbprint));
                 await _dbContext.UserTokens.AddAsync(new IdentityUserToken<string>
                 {
                     LoginProvider = "Zdimk",
-                    Name = "jwt-refresh-token",
+                    Name = DateTime.Now.Ticks.ToString(),
                     UserId = user.Id,
                     Value = request.RefreshToken
                 }, cancellationToken);

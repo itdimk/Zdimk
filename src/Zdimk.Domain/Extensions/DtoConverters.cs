@@ -38,7 +38,19 @@ namespace Zdimk.Domain.Extensions
                 Description = album.Description,
                 Updated = album.Updated,
                 Created = album.Created,
-                IsPrivate = album.IsPrivate
+                IsPrivate = album.IsPrivate,
+                Id = album.Id
+            };
+        }
+
+        public static PictureDto ToPictureDto(this Picture picture, string url)
+        {
+            return new PictureDto
+            {
+                Name = picture.Name,
+                Description = picture.Description,
+                Url = url,
+                Created = picture.Created,
             };
         }
     }

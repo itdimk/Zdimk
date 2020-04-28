@@ -6,7 +6,7 @@ namespace Zdimk.Application.Interfaces
 {
     public interface IPictureService
     {
-        Task SaveToContentFolderAsync(Stream source, string uniqueFileName);    
-        string GetPictureUrl(string uniqueFileName);
+        Task SaveToContentFolderAsync(Stream source, string pictureId, string fileExtension);    
+        string GetPictureUrl(string pictureId, string fileExtension);
     }
 }

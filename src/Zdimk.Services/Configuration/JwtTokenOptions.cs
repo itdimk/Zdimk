@@ -2,7 +2,7 @@
 
 namespace Zdimk.Services.Configuration
 {
-    public class JwtSecurityTokenOptions
+    public class JwtTokenOptions
     {
         public string Issuer { get; set; }
         public string AccessTokenAudience { get; set; }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Zdimk.Application.Constants;
@@ -25,13 +25,20 @@ namespace Zdimk.Application.Queries
 
         public async Task<string> Handle(GetJwtAccessTokenQuery request, CancellationToken cancellationToken)
         {
-            // TODO: try optimize this
             var token = await _dbContext.UserTokens.FirstOrDefaultAsync(t =>
                 t.Value == request.JwtRefreshToken, cancellationToken);
 
-            if (token == null) throw new ArgumentException("Invalid token");
+            if (token == null) 
+                throw new ArgumentException("Invalid token");
 
-            User user = await _userManager.FindByIdAsync(token.UserId); // TODO: add token validation
+            User user = await _userManager.FindByIdAsync(token.UserId);
+
+            var thumbprintClaim = (await _userManager.GetClaimsAsync(user)).FirstOrDefault(c =>
+                c.Type == ClaimTypes.Thumbprint && c.Value == request.Thumbprint);
+
+            if(thumbprintClaim == null) 
+                throw new ArgumentException("You are fucking hacker");
+            
             return await _userManager.GenerateUserTokenAsync(user, "jwt", JwtSecurityTokenPurposes.Access);
         }
     }

@@ -35,7 +35,7 @@ namespace Zdimk.WebApi.Controllers
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public async Task<ActionResult> RegisterJwtRefreshToken(RegisterJwtRefreshTokenCommand command)
+        public async Task<ActionResult> RegisterJwtRefreshToken(ActivateJwtRefreshTokenCommand command)
         {
             return Ok(await _mediator.Send(command));
         }

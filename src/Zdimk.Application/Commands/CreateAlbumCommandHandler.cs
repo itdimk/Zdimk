@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Zdimk.Application.Extensions;
 using Zdimk.DataAccess;
 using Zdimk.Domain.Dtos;
@@ -14,11 +15,14 @@ namespace Zdimk.Application.Commands
     public class CreateAlbumCommandHandler : IRequestHandler<CreateAlbumCommand, AlbumDto>
     {
         private readonly ZdimkDbContext _dbContext;
+        private readonly UserManager<User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CreateAlbumCommandHandler(ZdimkDbContext dbContext, IHttpContextAccessor accessor)
+        public CreateAlbumCommandHandler(ZdimkDbContext dbContext, UserManager<User> userManager,
+            IHttpContextAccessor accessor)
         {
             _dbContext = dbContext;
+            _userManager = userManager;
             _httpContextAccessor = accessor;
         }
 

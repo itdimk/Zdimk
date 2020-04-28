@@ -19,17 +19,19 @@ namespace Zdimk.Services
             _options = options.Value;
         }
 
-        public async Task SaveToContentFolderAsync(Stream source, string uniqueFileName)
+        public async Task SaveToContentFolderAsync(Stream source, string pictureId, string fileExtension)
         {
-            string outputFilePath = Path.Combine(_options.PictureFolderName, uniqueFileName);
+            FixFileExtension(ref fileExtension);
+            string outputFilePath = Path.Combine(_options.PictureFolderName, pictureId + fileExtension);
 
             using (Stream output = File.OpenWrite(outputFilePath))
                 await source.CopyToAsync(output);
         }
 
-        public string GetPictureUrl(string uniqueFileName)
+        public string GetPictureUrl(string pictureId, string fileExtension)
         {
-            return Path.Combine(_baseUrl, _options.PictureFolderName, uniqueFileName);
+            FixFileExtension(ref fileExtension);
+            return Path.Combine(_baseUrl, _options.PictureFolderName, pictureId + fileExtension);
         }
 
         private string GetBaseUrl(IHttpContextAccessor contextAccessor)
@@ -39,6 +41,12 @@ namespace Zdimk.Services
             var pathBase = request.PathBase.ToUriComponent();
 
             return $"{request.Scheme}://{host}{pathBase}/";
+        }
+
+        private void FixFileExtension(ref string fileExtension)
+        {
+            if (fileExtension[0] != '.')
+                fileExtension = fileExtension.Insert(0, ".");
         }
     }
 }

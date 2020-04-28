@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Zdimk.Application.Interfaces;
 using Zdimk.DataAccess;
 using Zdimk.Domain.Entities;
 using Zdimk.Services;
@@ -16,7 +17,7 @@ namespace Zdimk.WebApi.Extensions
     {
         public static void AddPictureService(this IServiceCollection services)
         {
-            services.AddSingleton<PictureService>();
+            services.AddSingleton<IPictureService, PictureService>();
         }
 
         public static void AddAuthorizationBundle<TUser>(this IServiceCollection services)
@@ -28,9 +29,9 @@ namespace Zdimk.WebApi.Extensions
                 .AddEntityFrameworkStores<ZdimkDbContext>();
         }
 
-        public static void AddAuthenticationBundle(this IServiceCollection services, Action<JwtSecurityTokenOptions> config)
+        public static void AddAuthenticationBundle(this IServiceCollection services, Action<JwtTokenOptions> config)
         {
-            var  options = new JwtSecurityTokenOptions();
+            var  options = new JwtTokenOptions();
             services.Configure(config);
             config.Invoke(options);
 

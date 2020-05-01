@@ -1,0 +1,30 @@
+﻿@page "/"
+@using Zdimk.BlazorApp.Dtos
+
+<div class="header">
+    <h1> Welcome to Gallery </h1>
+</div>
+
+<div class="picture-grid">
+    @if (Model != null)
+    {
+        <div class="picture-item">
+            <img class="picture" src="https://i.ytimg.com/vi/Xq_qNmaVsRc/mqdefault.jpg" alt="picture"/>
+            <div class="picture-name">32r23rdsf </div>
+            <div class="picture-description">3rdsfdsfef </div>
+        </div>
+
+        @foreach (AlbumDto album in Model)
+        {
+            <div class="picture-item">
+                <img class="picture" src="https://i.ytimg.com/vi/Xq_qNmaVsRc/mqdefault.jpg" alt="picture"/>
+                <div class="picture-name"> @album.Name </div>
+                <div class="picture-description"> @album.Description </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h3>Nothing here yet...</h3>
+    }
+</div>

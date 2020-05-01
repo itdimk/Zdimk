@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using MediatR;
 using Zdimk.Domain.Dtos;
@@ -8,7 +9,7 @@ namespace Zdimk.Application.Queries
 {
     public class GetAlbumsQuery : IRequest<IEnumerable<AlbumDto>>
     {
-        public string UserName { get; set; }
+        public string UserId { get; set; }
         public int Offset { get; set; }
         public int Count { get; set; }
     }

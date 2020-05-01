@@ -13,7 +13,7 @@ namespace Zdimk.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]/[action]")]
-    // [Authorize(AuthenticationSchemes = "Bearer")]
+     [Authorize(AuthenticationSchemes = "Bearer")]
     public class GalleryController : ControllerBase
     {
         private readonly IMediator _mediator;

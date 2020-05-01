@@ -1,37 +1,26 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">Zdimk.BlazorApp</a>
-    <button class="navbar-toggler" @onclick="ToggleNavMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</div>
-
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </li>
-        <li class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </li>
+﻿<nav>
+    <div id="hamburger" class="hamburger" @onclick="ToggleCollapsed">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    <ul class="nav-links @IsOpenCssClass">
+        <li class="@FadeCssClass"><a href="#">Home</a></li>
+        <li class="@FadeCssClass"><a href="#">Albums</a></li>
+        <li class="@FadeCssClass"><a href="#">About</a></li>
     </ul>
-</div>
+</nav>
 
 @code {
-    private bool collapseNavMenu = true;
 
-    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    bool _isCollapsed = true;
 
-    private void ToggleNavMenu()
+    string IsOpenCssClass => _isCollapsed ? "" : "open";
+    string FadeCssClass => _isCollapsed ? "" : "fade";
+    
+    private void ToggleCollapsed()
     {
-        collapseNavMenu = !collapseNavMenu;
+        _isCollapsed = !_isCollapsed;
     }
+
 }

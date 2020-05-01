@@ -34,7 +34,7 @@ namespace Zdimk.Application.Queries
         {
             User user = await _userManager.FindByIdAsync(_httpContextAccessor.HttpContext.GetUserId());
 
-            if (user.UserName == request.UserName)
+            if (user.Id == request.UserId)
             {
                 return await _dbContext.Albums.Skip(request.Offset).Take(request.Count)
                     .Select(a => a.ToAlbumDto())

@@ -4,4 +4,21 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css.map" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Blazored.LocalStorage" Version="2.1.5" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Update="wwwroot\css\auth.css">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
 </Project>

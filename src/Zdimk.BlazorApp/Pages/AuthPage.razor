@@ -1,0 +1,24 @@
+﻿@page "/Auth"
+
+@inject Blazored.LocalStorage.ILocalStorageService LocalStore
+
+
+<div class="auth-form-container">
+    <form class="auth-form  @InvalidDataCssClass">
+        <h3 class="auth-form-caption"> Sign in </h3>
+
+        <label for="Login">Login</label>
+
+        <input @onclick="ResetInvalidData" name="Login" type="text" @bind=Model.UserName/>
+        <label for="Password">Password</label>
+
+        <input @onclick="ResetInvalidData" name="Password" type="password" @bind=Model.Password/>
+        <button type="button" @onclick="OnSubmit">Submit</button>
+
+    </form>
+</div>
+
+@code {
+
+    string InvalidDataCssClass => InvalidData ? "auth-form-invalid" : "";
+}

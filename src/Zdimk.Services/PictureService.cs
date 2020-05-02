@@ -12,7 +12,7 @@ namespace Zdimk.Services
     {
         private readonly string _baseUrl;
         private readonly PictureServiceOptions _options;
-
+    
         public PictureService(IHttpContextAccessor httpContext, IOptions<PictureServiceOptions> options)
         {
             _baseUrl = GetBaseUrl(httpContext);
@@ -22,9 +22,9 @@ namespace Zdimk.Services
         public async Task SaveToContentFolderAsync(Stream source, string pictureId, string fileExtension)
         {
             FixFileExtension(ref fileExtension);
-            string outputFilePath = Path.Combine(_options.PictureFolderName, pictureId + fileExtension);
+            string outputFilePath = Path.Combine("wwwroot", _options.PictureFolderName, pictureId + fileExtension);
 
-            using (Stream output = File.OpenWrite(outputFilePath))
+            using (FileStream output = new FileStream(outputFilePath, FileMode.Create))// File.OpenWrite(outputFilePath))
                 await source.CopyToAsync(output);
         }
 

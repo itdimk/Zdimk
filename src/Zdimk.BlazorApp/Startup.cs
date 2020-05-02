@@ -44,10 +44,10 @@ namespace Zdimk.BlazorApp
             
 
             services.AddHttpClient<IGalleryService, GalleryService>(h =>
-                h.BaseAddress = new Uri(Configuration["BaseUrl"]));
+                h.BaseAddress = new Uri(ApiConstants.BaseApiUrl));
 
             services.AddHttpClient<IUserService, UserService>(h =>
-                h.BaseAddress = new Uri(Configuration["BaseUrl"]));
+                h.BaseAddress = new Uri(ApiConstants.BaseApiUrl));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

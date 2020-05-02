@@ -29,10 +29,11 @@ namespace Zdimk.Application.Commands
                 Id = Guid.NewGuid(),
                 Name = request.Name,
                 Description = request.Description,
-                Extension = Path.GetExtension(request.PictureFile.Name),
+                Extension = Path.GetExtension(request.PictureFile.FileName),
                 Created = DateTimeOffset.UtcNow,
                 AlbumId = request.AlbumId
             };
+
             
             using (Stream source = request.PictureFile.OpenReadStream())
                 await _pictureService.SaveToContentFolderAsync(source, picture.Id.ToString(), picture.Extension);

@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Mime;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Blazored.LocalStorage;
+using BlazorInputFile;
 using Microsoft.Extensions.Options;
 using Zdimk.BlazorApp.Abstractions;
 using Zdimk.BlazorApp.Dtos;
+using Zdimk.BlazorApp.Dtos.Commands;
 using Zdimk.BlazorApp.Dtos.Queries;
 using Zdimk.BlazorApp.Extensions;
 using Zdimk.BlazorApp.Services.Configuration;
@@ -29,7 +35,7 @@ namespace Zdimk.BlazorApp.Services
         public async Task<ICollection<AlbumDto>> GetAlbumsAsync(GetAlbumsQuery query)
         {
             Uri requestUrl = new Uri(_httpClient.BaseAddress, ApiConstants.GetAlbumsUrl);
- 
+
             string token = await _localStore.GetItemAsync<string>(_securityOptions.AccessTokenName);
             AuthenticationHeaderValue authHeader = new AuthenticationHeaderValue("Bearer", token);
 
@@ -46,6 +52,55 @@ namespace Zdimk.BlazorApp.Services
 
             return await _httpClient.PostAsJsonAsync<GetPicturesQuery, ICollection<PictureDto>>(requestUrl, query,
                 authHeader);
+        }
+
+        public async Task<bool> UploadPicture(CreatePictureCommand command)
+        {
+            Uri requestUrl = new Uri(_httpClient.BaseAddress, ApiConstants.CreateImage);
+
+            string token = await _localStore.GetItemAsync<string>(_securityOptions.AccessTokenName);
+            AuthenticationHeaderValue authHeader = new AuthenticationHeaderValue("Bearer", token);
+
+            MultipartFormDataContent form = new MultipartFormDataContent();
+
+            byte[] fileBytes;
+
+            using (MemoryStream stream = await command.PictureFile.ReadAllAsync())
+            {
+                fileBytes = stream.ToArray();
+            }
+
+            form.Add(new StringContent(command.AlbumId), nameof(command.AlbumId).ToLower());
+            form.Add(new StringContent(command.Name), nameof(command.Name).ToLower());
+            form.Add(new StringContent(command.Description + "111"), nameof(command.Description).ToLower());
+            form.Add(new ByteArrayContent(fileBytes, 0, fileBytes.Length), nameof(command.PictureFile),
+                command.PictureFile.Name);
+
+            HttpRequestMessage request = await CreateRequestMessage(requestUrl, form, authHeader);
+            HttpResponseMessage response = await _httpClient.SendAsync(request);
+
+            response.EnsureSuccessStatusCode();
+            
+            return true;
+        }    
+
+        public Task<bool> CreateAlbum(CreateAlbumCommand command)
+        {
+            throw new NotImplementedException();
+        }
+        
+        private static async Task<HttpRequestMessage> CreateRequestMessage(Uri requestUrl, MultipartContent multipart,
+            AuthenticationHeaderValue authHeaderValue = null)
+        {
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, requestUrl);
+
+            if (authHeaderValue != null)
+                requestMessage.Headers.Authorization = authHeaderValue;
+
+            requestMessage.Content = multipart;
+           // requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("multipart/form-data");
+
+            return requestMessage;
         }
     }
 }

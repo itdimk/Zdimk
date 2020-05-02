@@ -103,6 +103,7 @@ namespace Zdimk.WebApi
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseStaticFiles();
 
 
             app.UseEndpoints(endpoints =>  endpoints.MapControllers());

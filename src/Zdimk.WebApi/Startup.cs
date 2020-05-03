@@ -67,7 +67,7 @@ namespace Zdimk.WebApi
             
             services.AddMediatR(typeof(CreateUserCommand));
             
-            services.AddAuthorizationBundle<User>();
+            services.AddAuthorizationBundle<User, Guid>();
             services.AddAuthenticationBundle(opt =>
             {
                 opt.Issuer = Configuration["Jwt:Issuer"];

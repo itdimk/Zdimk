@@ -24,12 +24,11 @@ namespace Zdimk.Application.Commands
             var user = new User
             {
                 UserName = request.UserName,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
+                FullName = request.FullName,
                 RegistrationDate = DateTimeOffset.UtcNow,
                 LastLoginDate = DateTimeOffset.UtcNow,
                 BirthDate = request.BirthDate,
-                Email = request.Email
+                Email = request.Email,
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, request.Password);

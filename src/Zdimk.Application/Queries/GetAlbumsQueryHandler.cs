@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -32,7 +33,8 @@ namespace Zdimk.Application.Queries
 
         public async Task<IEnumerable<AlbumDto>> Handle(GetAlbumsQuery request, CancellationToken cancellationToken)
         {
-            User user = await _userManager.FindByIdAsync(_httpContextAccessor.HttpContext.GetUserId());
+            Guid userId = _httpContextAccessor.HttpContext.GetUserId();
+            User user = await _userManager.FindByIdAsync(userId.ToString());
 
             if (user.Id == request.UserId)
             {

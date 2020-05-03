@@ -1,21 +1,41 @@
 ﻿@page "/upload-picture"
 
 
+<div class="form-container">
+    <form class="form">
+        <p class="form-caption"> Upload picture </p>
 
-<form>
-    <label for="name"></label>
-    <input name="name" type="text" @bind=Command.Name/>
-    
-    <select id="albums" @bind=Command.AlbumId>
-        @if (AvailableAlbums != null)
-        {
-            @foreach (var album in AvailableAlbums)
+        <label for="name">Name</label>
+        <input id="name" type="text" @bind=Command.Name/>
+
+        <label for="albums">Album</label>
+        <select id="albums" @bind=Command.AlbumId>
+            @if (AvailableAlbums != null)
             {
-                <option value=@album.Id> @album.Name</option>
+                @foreach (var album in AvailableAlbums)
+                {
+                    <option value=@album.Id> @album.Name</option>
+                }
             }
-        }
-    </select>
+        </select>
 
-    <InputFile OnChange="OnFileChanged"/>
-    <button type="button" @onclick="OnSubmit" > Submit !</button>
-</form>
+        <label for="file">File</label>
+
+        <button type="button" @onclick="ShowOpenFileDialog">
+            @if (Command.PictureFile != null)
+            {
+                <p>@Command.PictureFile.Name</p>
+            }
+            else
+            {
+                <p>Choose file</p>
+            }
+        </button>
+
+
+        <InputFile class="hidden" style="display:none" id="fileUpload" OnChange="OnFileChanged"/>
+
+        <button class="form-submit-button" type="button" @onclick="OnSubmit"> Upload </button>
+
+    </form>
+</div>

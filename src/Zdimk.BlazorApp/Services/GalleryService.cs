@@ -80,15 +80,26 @@ namespace Zdimk.BlazorApp.Services
             HttpResponseMessage response = await _httpClient.SendAsync(request);
 
             response.EnsureSuccessStatusCode();
-            
+
             return true;
-        }    
+        }
+
+        public async Task<bool> UploadPictures(IList<CreatePictureCommand> commands)
+        {
+            foreach (var command in commands)
+            {
+                if (!await UploadPicture(command))
+                    return false;
+            }
+
+            return true;
+        }
 
         public Task<bool> CreateAlbum(CreateAlbumCommand command)
         {
             throw new NotImplementedException();
         }
-        
+
         private static async Task<HttpRequestMessage> CreateRequestMessage(Uri requestUrl, MultipartContent multipart,
             AuthenticationHeaderValue authHeaderValue = null)
         {
@@ -98,7 +109,7 @@ namespace Zdimk.BlazorApp.Services
                 requestMessage.Headers.Authorization = authHeaderValue;
 
             requestMessage.Content = multipart;
-           // requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("multipart/form-data");
+            // requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("multipart/form-data");
 
             return requestMessage;
         }

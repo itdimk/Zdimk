@@ -28,7 +28,7 @@ namespace Zdimk.Application.Commands
 
         public async Task<AlbumDto> Handle(CreateAlbumCommand request, CancellationToken cancellationToken)
         {
-            string userId = _httpContextAccessor.HttpContext.GetUserId();
+            Guid userId = _httpContextAccessor.HttpContext.GetUserId();
 
             var album = new Album
             {
@@ -38,6 +38,7 @@ namespace Zdimk.Application.Commands
                 Created = DateTimeOffset.UtcNow,
                 IsPrivate = request.IsPrivate,
                 OwnerId = userId,
+                CoverUrl = request.CoverUrl,
             };
 
             await _dbContext.Albums.AddAsync(album, cancellationToken);

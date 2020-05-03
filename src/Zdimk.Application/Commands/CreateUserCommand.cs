@@ -7,11 +7,10 @@ namespace Zdimk.Application.Commands
 {
     public class CreateUserCommand : IRequest<UserPrivateDto>
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FullName { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
-        public DateTimeOffset BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
         public string Password { get; set; }
     }
 }

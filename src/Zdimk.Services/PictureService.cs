@@ -19,7 +19,7 @@ namespace Zdimk.Services
             _options = options.Value;
         }
 
-        public async Task SaveToContentFolderAsync(Stream source, string pictureId, string fileExtension)
+        public async Task SaveToContentFolderAsync(Stream source, Guid pictureId, string fileExtension)
         {
             FixFileExtension(ref fileExtension);
             string outputFilePath = Path.Combine("wwwroot", _options.PictureFolderName, pictureId + fileExtension);
@@ -28,7 +28,7 @@ namespace Zdimk.Services
                 await source.CopyToAsync(output);
         }
 
-        public string GetPictureUrl(string pictureId, string fileExtension)
+        public string GetPictureUrl(Guid pictureId, string fileExtension)
         {
             FixFileExtension(ref fileExtension);
             return Path.Combine(_baseUrl, _options.PictureFolderName, pictureId + fileExtension);

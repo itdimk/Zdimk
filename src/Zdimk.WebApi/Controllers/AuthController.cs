@@ -16,9 +16,9 @@ namespace Zdimk.WebApi.Controllers
     {
         private readonly IMediator _mediator;
 
-        public AuthController(IMediator mediator, RoleManager<IdentityRole> m)
+        public AuthController(IMediator mediator)
         {
-            _mediator = mediator; // TODO: SHIT
+            _mediator = mediator; 
         }
         
         [HttpPost]

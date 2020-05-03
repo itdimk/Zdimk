@@ -1,0 +1,22 @@
+﻿@using Zdimk.BlazorApp.Dtos.Queries
+
+@if (Model != null)
+{
+    <form class="form-base">
+        <label class="input-label">Login</label>
+        <input class="input-text" type="text" @bind=Model.UserName/>
+        <a class="auth-under-input-link" href="#"> Registration </a>
+        
+        <label class="input-label">Password</label>
+        <input class="input-text" type="password" @bind=Model.Password/>
+        <a class="auth-under-input-link" href="#"> Forgot password ? </a>
+        
+        <input class="input-button auth-submit" type="button" @onclick=OnSubmit value="Submit"/>
+    </form>
+}
+
+@code 
+{
+    [Parameter] public GetJwtTokenPairQuery Model { get; set; }
+    [Parameter] public EventCallback OnSubmit { get; set; }
+}

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Zdimk.Domain.Entities
 {
@@ -10,6 +12,11 @@ namespace Zdimk.Domain.Entities
         public string Extension { get; set; }
         public DateTimeOffset Created { get; set; }
         public virtual  Album Album { get; set; }
+        
+        public virtual  ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<PictureTag> PictureTags { get; set; }
         public Guid AlbumId { get; set; }
+        
+        public int Likes { get; set; }
     }
 }

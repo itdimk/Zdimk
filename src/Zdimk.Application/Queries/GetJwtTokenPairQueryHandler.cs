@@ -22,7 +22,11 @@ namespace Zdimk.Application.Queries
 
         public async Task<JwtTokenPair> Handle(GetJwtTokenPairQuery request, CancellationToken cancellationToken)
         {
-            User user = await _userManager.FindByNameAsync(request.UserName);
+            User user;
+            if(request.Login.Contains("@"))
+                user = await _userManager.FindByEmailAsync(request.Login);
+            else
+                user = await _userManager.FindByNameAsync(request.Login);
 
             SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, request.Password, false, false);
 

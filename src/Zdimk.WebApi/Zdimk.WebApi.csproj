@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="8.6.2" />
       <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.3" />
@@ -19,7 +20,30 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="wwwroot\images" />
+      <Folder Include="wwwroot" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="wwwroot\images\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="wwwroot\images\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="wwwroot\images\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="wwwroot\images\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\images\36607f7d-a15c-475e-b26a-a2ffaf3a64c7.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\5c1a7acc-784e-490b-8b90-936e86b0b59e.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\616e1786-5560-4f75-8d2b-42156d4454ae.jpg" />
+      <_ContentIncludedByDefault Remove="wwwroot\images\a95d18c2-ee60-41d8-baaf-4f1419ca1c24.jpg" />
     </ItemGroup>
 
 

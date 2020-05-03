@@ -31,7 +31,7 @@ namespace Zdimk.Application.Queries
             if (token == null) 
                 throw new ArgumentException("Invalid token");
 
-            User user = await _userManager.FindByIdAsync(token.UserId);
+            User user = await _userManager.FindByIdAsync(token.UserId.ToString());
 
             var thumbprintClaim = (await _userManager.GetClaimsAsync(user)).FirstOrDefault(c =>
                 c.Type == ClaimTypes.Thumbprint && c.Value == request.Thumbprint);

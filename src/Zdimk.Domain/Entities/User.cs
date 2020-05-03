@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Zdimk.Domain.Entities
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<Guid>
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FullName { get; set; }
         public DateTimeOffset RegistrationDate { get; set; }
         public DateTimeOffset LastLoginDate { get; set; }
-        public DateTimeOffset BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
         public virtual ICollection<Album> Albums { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

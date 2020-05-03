@@ -11,10 +11,11 @@ namespace Zdimk.Domain.Entities
         public string Description { get; set; }
         public DateTimeOffset Updated { get; set; }
         public DateTimeOffset Created { get; set; }
+        public string CoverUrl { get; set; }
         public bool IsPrivate { get; set; }
         public virtual User Owner { get; set; }
         public virtual ICollection<Picture> Pictures { get; set; }
-        public string OwnerId { get; set; }
+        public Guid OwnerId { get; set; }
         
     }
 }

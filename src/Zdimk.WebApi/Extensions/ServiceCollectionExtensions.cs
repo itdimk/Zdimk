@@ -20,23 +20,25 @@ namespace Zdimk.WebApi.Extensions
             services.AddSingleton<IPictureService, PictureService>();
         }
 
-        public static void AddAuthorizationBundle<TUser>(this IServiceCollection services)
-            where TUser: IdentityUser
+        public static void AddAuthorizationBundle<TUser, TKey>(this IServiceCollection services)
+            where TUser : IdentityUser<TKey>
+            where TKey : IEquatable<TKey>
         {
             services.AddAuthorization()
-                .AddIdentity<TUser, IdentityRole>()
-                .AddTokenProvider<JwtSecutiryTokenProvider<TUser>>("jwt")
+                .AddIdentity<TUser, IdentityRole<TKey>>()
+                .AddTokenProvider<JwtSecutiryTokenProvider<TUser, TKey>>("jwt")
                 .AddEntityFrameworkStores<ZdimkDbContext>();
+            //  .AddRoleManager<RoleManager<IdentityRole<Guid>>>();
         }
 
         public static void AddAuthenticationBundle(this IServiceCollection services, Action<JwtTokenOptions> config)
         {
-            var  options = new JwtTokenOptions();
+            var options = new JwtTokenOptions();
             services.Configure(config);
             config.Invoke(options);
 
             var symmetricKey = new SymmetricSecurityKey(options.PrivateKey);
-            
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opts =>
                 {
@@ -45,7 +47,7 @@ namespace Zdimk.WebApi.Extensions
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateIssuerSigningKey = true,
-                        
+
                         ValidIssuer = options.Issuer,
                         ValidAudience = options.AccessTokenAudience,
                         IssuerSigningKey = symmetricKey

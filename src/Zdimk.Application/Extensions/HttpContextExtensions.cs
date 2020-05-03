@@ -8,14 +8,17 @@ namespace Zdimk.Application.Extensions
 {
     public static class HttpContextExtensions
     {
-        public static string GetUserId(this HttpContext context)
+        public static Guid GetUserId(this HttpContext context)
         {
-            Claim[] userClaims = context.User.Claims.ToArray();
-            string id = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-            string altId =  userClaims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+            string id = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string altId = context.User.FindFirstValue(ClaimTypes.Name);
 
-            if (id != null) return id;
-            if (altId != null) return altId;
+            if (Guid.TryParse(id, out Guid result))
+                return result;
+
+            if (Guid.TryParse(altId, out Guid altResult))
+                return altResult;
+
             throw new Exception("Id is not found");
         }
     }

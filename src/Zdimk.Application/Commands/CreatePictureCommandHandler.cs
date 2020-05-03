@@ -26,22 +26,21 @@ namespace Zdimk.Application.Commands
         {
             Picture picture = new Picture
             {
-                Id = Guid.NewGuid(),
                 Name = request.Name,
                 Description = request.Description,
                 Extension = Path.GetExtension(request.PictureFile.FileName),
                 Created = DateTimeOffset.UtcNow,
-                AlbumId = request.AlbumId
+                AlbumId = request.AlbumId,
             };
 
             
             using (Stream source = request.PictureFile.OpenReadStream())
-                await _pictureService.SaveToContentFolderAsync(source, picture.Id.ToString(), picture.Extension);
+                await _pictureService.SaveToContentFolderAsync(source, picture.Id, picture.Extension);
 
             await _dbContext.Pictures.AddAsync(picture, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
             
-            return picture.ToPictureDto(_pictureService.GetPictureUrl(picture.Id.ToString(), picture.Extension));
+            return picture.ToPictureDto(_pictureService.GetPictureUrl(picture.Id, picture.Extension));
         }
     }
 }

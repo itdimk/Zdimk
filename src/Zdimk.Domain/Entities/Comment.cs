@@ -10,7 +10,9 @@ namespace Zdimk.Domain.Entities
         public virtual Picture Picture { get; set; }
         public Guid PictureId { get; set; }
         
-        public virtual  User Author { get; set; }
-        public string AuthorId { get; set; }
+        public virtual User Author { get; set; }
+        public Guid AuthorId { get; set; }
+        
+        public int Likes { get; set; }
     }
 }

@@ -12,8 +12,9 @@ using Zdimk.Services.Configuration;
 
 namespace Zdimk.Services
 {
-    public class JwtSecutiryTokenProvider<TUser> : IUserTwoFactorTokenProvider<TUser>
-        where TUser : IdentityUser
+    public class JwtSecutiryTokenProvider<TUser, TKey> : IUserTwoFactorTokenProvider<TUser>
+        where TUser : IdentityUser<TKey>
+        where TKey : IEquatable<TKey>
     {
         private readonly JwtTokenOptions _options;
 
@@ -42,7 +43,7 @@ namespace Zdimk.Services
             try
             {
                 var jwtHandler = new JwtSecurityTokenHandler();
- 
+
                 jwtHandler.ValidateToken(token, new TokenValidationParameters()
                 {
                     ValidIssuer = _options.Issuer,
@@ -69,32 +70,32 @@ namespace Zdimk.Services
 
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
-            
+
             return new JwtSecurityToken(
                 issuer: _options.Issuer,
                 audience: _options.AccessTokenAudience,
                 claims: claims,
                 expires: DateTime.Now + _options.AccessTokenLifetime,
-                signingCredentials:signingCredentials);
+                signingCredentials: signingCredentials);
         }
-        
+
         private JwtSecurityToken GenerateRefreshToken(SymmetricSecurityKey key, UserManager<TUser> manager, TUser user)
         {
             var signingCredentials = new SigningCredentials(key, _options.RefreshTokenSigningAlgorithm);
 
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
-            
+
             return new JwtSecurityToken(
                 issuer: _options.Issuer,
                 audience: _options.RefreshTokenAudience,
                 claims: claims,
                 expires: DateTime.Now + _options.RefreshTokenLifetime,
-                signingCredentials:signingCredentials);
+                signingCredentials: signingCredentials);
         }
 
         private string GetValidAudience(string purpose)

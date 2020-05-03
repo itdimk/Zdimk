@@ -1,6 +1,13 @@
-@import "navbar/navbar.css";
-@import "pictures.css";
-@import "auth.css";
+@import "reset.css";
+@import "shared.css";
+
+@import "components/album-preview.css";
+@import "components/navbar.css";
+@import "components/auth.css";
+
+@import "pages/p-albums.css";
+@import "pages/p-auth.css";
+@import "pages/p-user-search.css";
 
 #blazor-error-ui {
     background: lightyellow;
@@ -25,6 +32,6 @@
     display: none;
 }
 
-.header {
-    margin: 2em;
+body {
+    background: #edeef0;
 }

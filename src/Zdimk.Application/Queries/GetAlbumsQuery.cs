@@ -9,7 +9,7 @@ namespace Zdimk.Application.Queries
 {
     public class GetAlbumsQuery : IRequest<IEnumerable<AlbumDto>>
     {
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
         public int Offset { get; set; }
         public int Count { get; set; }
     }

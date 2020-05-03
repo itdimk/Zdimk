@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,9 +25,9 @@ namespace Zdimk.Application.Commands
 
         public async Task<Unit> Handle(DeactivateRefreshTokensCommand request, CancellationToken cancellationToken)
         {
-            string userId = _httpContextAccessor.HttpContext.GetUserId();
+            Guid userId = _httpContextAccessor.HttpContext.GetUserId();
 
-            IdentityUserToken<string>[] tokensToDelete
+            IdentityUserToken<Guid>[] tokensToDelete
                 = await _dbContext.UserTokens.Where(t => t.UserId == userId).ToArrayAsync(cancellationToken);
 
             _dbContext.UserTokens.RemoveRange(tokensToDelete);

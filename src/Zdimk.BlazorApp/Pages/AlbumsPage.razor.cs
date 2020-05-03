@@ -8,22 +8,21 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.JSInterop;
 using Zdimk.BlazorApp.Abstractions;
 using Zdimk.BlazorApp.Dtos;
 using Zdimk.BlazorApp.Dtos.Queries;
-using Zdimk.BlazorApp.Extensions;
-using Zdimk.BlazorApp.Services;
 
 namespace Zdimk.BlazorApp.Pages
 {
-    public partial class HomePage
+    public partial class AlbumsPage
     {
-        private IEnumerable<AlbumDto> Model { get; set; } = new List<AlbumDto>();
+        private IEnumerable<AlbumDto> Albums { get; set; } = new List<AlbumDto>();
 
+        [Parameter] public string UserName { get; set; }
         [Inject] private  IUserService UserService { get; set; }
         [Inject] private IGalleryService GalleryService { get; set; }
+        
         
         protected  override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -40,7 +39,7 @@ namespace Zdimk.BlazorApp.Pages
                 };
 
                 
-                Model = await GalleryService.GetAlbumsAsync(query);
+                Albums = await GalleryService.GetAlbumsAsync(query);
                 StateHasChanged();
             }
 

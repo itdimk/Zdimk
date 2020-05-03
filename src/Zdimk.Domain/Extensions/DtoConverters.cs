@@ -1,4 +1,5 @@
-﻿using Zdimk.Domain.Dtos;
+﻿using System.Runtime.Serialization;
+using Zdimk.Domain.Dtos;
 using Zdimk.Domain.Entities;
 
 namespace Zdimk.Domain.Extensions
@@ -9,13 +10,13 @@ namespace Zdimk.Domain.Extensions
         {
             return new UserPrivateDto
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                UserName = user.UserName,
+                Id = user.Id,
+                FullName = user.FullName,
                 Email = user.Email,
                 BirthDate = user.BirthDate,
                 RegistrationDate = user.RegistrationDate,
-                LastLoginDate = user.LastLoginDate
+                LastLoginDate = user.LastLoginDate,
+                UserName = user.UserName
             };
         }
 
@@ -23,10 +24,10 @@ namespace Zdimk.Domain.Extensions
         {
             return new UserPublicDto
             {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                UserName = user.UserName,
+                Id = user.Id,
+                UserName = user.FullName,
                 BirthDate = user.BirthDate,
+                FullName = user.FullName
             };
         }
 
@@ -34,12 +35,14 @@ namespace Zdimk.Domain.Extensions
         {
             return new AlbumDto
             {
+                Id = album.Id,
                 Name = album.Name,
                 Description = album.Description,
+                CoverUrl = album.CoverUrl,
                 Updated = album.Updated,
                 Created = album.Created,
                 IsPrivate = album.IsPrivate,
-                Id = album.Id
+                OwnerId = album.OwnerId
             };
         }
 
@@ -47,10 +50,12 @@ namespace Zdimk.Domain.Extensions
         {
             return new PictureDto
             {
+                Id = picture.Id,
                 Name = picture.Name,
                 Description = picture.Description,
-                Url = url,
                 Created = picture.Created,
+                AlbumId = picture.AlbumId,
+                OwnerId = picture.Album.Owner.Id
             };
         }
     }

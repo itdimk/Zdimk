@@ -19,7 +19,8 @@ namespace Zdimk.BlazorApp.Pages
     {
         private IEnumerable<AlbumDto> AvailableAlbums { get; set; } = new List<AlbumDto>();
         private CreatePictureCommand Command { get; set; } = new CreatePictureCommand();
-        
+
+        [Inject] private  IJSRuntime JsInterop { get; set; }
         [Inject] private IUserService UserService { get; set; }
         [Inject] private IGalleryService GalleryService { get; set; }
 
@@ -50,13 +51,16 @@ namespace Zdimk.BlazorApp.Pages
 
             if (file != null)
                 Command.PictureFile = file;
-
-
         }
 
         private async void OnSubmit()
         {
             await GalleryService.UploadPicture(Command);
+        }
+
+        private async void ShowOpenFileDialog()
+        {
+            await JsInterop.InvokeAsync<string>("invokeClickFor", new object[] {"fileUpload" });
         }
     }
 }

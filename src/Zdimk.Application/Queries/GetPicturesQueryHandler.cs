@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -32,12 +33,12 @@ namespace Zdimk.Application.Queries
         public async Task<IEnumerable<PictureDto>> Handle(GetPicturesQuery request, CancellationToken cancellationToken)
         {
             Album album = await _dbContext.Albums.FindAsync(request.AlbumId);
-            string userId = _httpContextAccessor.HttpContext.GetUserId();
+            Guid userId = _httpContextAccessor.HttpContext.GetUserId();
 
             if (!album.IsPrivate || userId == album.OwnerId)
             {
                 return album.Pictures.Select(p =>
-                        p.ToPictureDto(_pictureService.GetPictureUrl(p.Id.ToString(), p.Extension)))
+                        p.ToPictureDto(_pictureService.GetPictureUrl(p.Id, p.Extension)))
                     .ToArray();
             }
             else

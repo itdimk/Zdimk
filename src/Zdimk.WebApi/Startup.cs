@@ -76,8 +76,8 @@ namespace Zdimk.WebApi
                 opt.PrivateKey = Encoding.UTF8.GetBytes(Configuration["Jwt:PrivateKey"]);
                 opt.AccessTokenSigningAlgorithm = SecurityAlgorithms.HmacSha256Signature;
                 opt.RefreshTokenSigningAlgorithm = SecurityAlgorithms.HmacSha512Signature;
-                opt.AccessTokenLifetime = TimeSpan.FromHours(16.0);
-                opt.RefreshTokenLifetime = TimeSpan.FromDays(30.0);
+                opt.AccessTokenLifetime = TimeSpan.FromMinutes(2);
+                opt.RefreshTokenLifetime = TimeSpan.FromMinutes(50);
             });
             
             services.AddDbContext<ZdimkDbContext>(opts => opts

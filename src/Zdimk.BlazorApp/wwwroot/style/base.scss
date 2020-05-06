@@ -1,0 +1,167 @@
+﻿@import "variables";
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+html {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+body {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+ 
+input {
+  &[type="text"], &[type="password"] {
+    display: block;
+    outline: none;
+    border: 1px solid rgb(215, 215, 215);
+    margin: 1rem 0.5rem;
+    background: white;
+    padding: 0.2rem 0.5rem;
+
+    &:focus, &:hover {
+      border: 1px solid #4686f8;
+    }
+  }
+
+  &[type="button"] {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid #CCCCCC;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+    margin: 0.2rem;
+    transition: background-color duration(hover-highlight) ease;
+
+    &:hover {
+      background-color: #edeef0;
+    }
+  }
+}
+
+textarea {
+  outline: none;
+  border: 1px solid rgb(215, 215, 215);
+  margin: 1rem 0.5rem;
+  background: white;
+  padding: 0.2rem 0.5rem;
+  resize:vertical;
+  min-height: 2rem;
+
+  &:focus, &:hover {
+    border: 1px solid #4686f8;
+  }
+}
+
+:root {
+  font-size: calc(0.6rem + 0.7vmin);
+}
+
+label {
+  display: block;
+}
+
+body {
+  background-color: color(bg-body);
+  font-family: 'Titillium Web', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.hidden {
+  visibility: hidden !important;
+}
+
+.collapsed {
+  display: none !important;
+}
+
+ 

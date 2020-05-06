@@ -1,0 +1,32 @@
+﻿@page "/albums/{AlbumIdString}"
+@using Zdimk.BlazorApp.Abstractions
+@inject IUserService UserService
+@inject IJSRuntime JsInterop
+@inject IGalleryService Gallery
+
+<div class="l-home-page">
+    <div class="block">
+        <div class="block-header">
+            <p> Album </p>
+            <div class="block-header-button-list">
+                <a class="block-header-button icon-only add-icon" @onclick=ShowOpenFileDialog title="Add album"/>
+            </div>
+        </div>
+        <div class="block-body">
+            <PictureGrid Model="Pictures"/>
+            <InputFile class="collapsed" id="fileUpload" OnChange="OnFileChanged"/>
+        </div>
+    </div>
+</div>
+
+
+
+@code
+{
+    [Parameter]
+    public string AlbumIdString { get; set; }
+
+    private Guid AlbumId => Guid.Parse(AlbumIdString);
+
+
+}

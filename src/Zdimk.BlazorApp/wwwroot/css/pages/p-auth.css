@@ -1,9 +1,0 @@
-﻿.p-auth-root {
-    display: flex;
-    justify-content: center;
-    font-size: calc(0.6em + 1vmin);
-}
-
-.p-auth-root > * {
-    margin-top: 5em;
-}

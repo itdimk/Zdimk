@@ -10,8 +10,7 @@ namespace Zdimk.BlazorApp.Abstractions
     {
         Task<ICollection<AlbumDto>> GetAlbumsAsync(GetAlbumsQuery query);
         Task<ICollection<PictureDto>> GetPicturesAsync(GetPicturesQuery query);
-        Task<bool> UploadPicture(CreatePictureCommand command);
-        Task<bool> UploadPictures(IList<CreatePictureCommand> commands);
+        Task<PictureDto> UploadPicture(CreatePictureCommand command);
         Task<bool> CreateAlbum(CreateAlbumCommand command);
     }
 }

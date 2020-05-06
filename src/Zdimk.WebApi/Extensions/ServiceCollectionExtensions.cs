@@ -47,6 +47,7 @@ namespace Zdimk.WebApi.Extensions
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateIssuerSigningKey = true,
+                        ValidateLifetime = true,
 
                         ValidIssuer = options.Issuer,
                         ValidAudience = options.AccessTokenAudience,

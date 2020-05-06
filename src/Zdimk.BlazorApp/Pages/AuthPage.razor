@@ -1,10 +1,11 @@
 ﻿@page "/Auth"
 
-<div class="p-auth-root">
+
+<div class="l-auth-page">
     <div class="block">
         <p class="block-header"> Sign in </p>
         <div class="block-body">
-            <AuthForm Model="this.Model"/>
+            <AuthForm Model="this.Model" OnSubmit=OnSubmit/>
         </div>
     </div>
 </div>

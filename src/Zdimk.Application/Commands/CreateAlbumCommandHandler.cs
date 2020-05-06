@@ -32,6 +32,7 @@ namespace Zdimk.Application.Commands
 
             var album = new Album
             {
+                Id = Guid.NewGuid(),
                 Name = request.Name,
                 Description = request.Description,
                 Updated = DateTimeOffset.UtcNow,

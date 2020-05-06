@@ -1,0 +1,54 @@
+.l-home-page {
+  display: grid;
+  grid-gap: 1rem;
+  margin: 1rem;
+  grid-template-columns: 2fr minmax(15rem, 1fr);
+}
+.l-home-page .l-album-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+.l-album-edit {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: minmax(20rem, 1fr) 4rem;
+  grid-gap: 2rem;
+}
+.l-album-edit .l-left {
+  grid-column: 1/2;
+  justify-self: end;
+  align-self: center;
+}
+.l-album-edit .l-right {
+  width: 100%;
+  grid-column: 2/3;
+  align-self: center;
+  justify-self: start;
+}
+.l-album-edit .l-buttons {
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+.l-auth-page {
+  display: flex;
+  flex-direction: row-reverse;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+}
+.l-auth-page .l-auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+@media screen and (max-width: 767px) {
+  .l-home-page {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+}
+
+/*# sourceMappingURL=layouts.css.map */

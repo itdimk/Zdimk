@@ -1,4 +1,4 @@
-﻿namespace Zdimk.Application.Queries
+﻿namespace Zdimk.BlazorApp.Dtos.Queries
 {
     public class GetJwtAccessTokenQuery 
     {

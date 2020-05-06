@@ -1,0 +1,30 @@
+﻿@using Zdimk.BlazorApp.Abstractions
+@inject IGalleryService Gallery
+
+<div class="l-album-view">
+    @if (Model != null)
+    {
+        @foreach (var picture in Model)
+        {
+            <div class="album-card">
+                <div class="album-info">
+                    <p class="album-name">@picture.Name</p>
+                    <p class="album-description">@picture.Description</p>
+                </div>
+
+                <img class="album-cover" src="@picture.Url" alt="Album cover"/>
+            </div>
+        }
+    }
+    else
+    {
+        <h3>Nothing here yet...</h3>
+    }
+</div>
+}
+
+@code
+{
+    [Parameter]
+    public Guid AlbumId { get; set; }
+}

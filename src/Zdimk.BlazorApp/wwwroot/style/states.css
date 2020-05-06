@@ -1,0 +1,11 @@
+@media screen and (max-width: 767px) {
+  .navbar {
+    transition: margin-right 0.5s ease;
+  }
+
+  .navbar.is-collapsed {
+    margin-right: -150vw;
+  }
+}
+
+/*# sourceMappingURL=states.css.map */

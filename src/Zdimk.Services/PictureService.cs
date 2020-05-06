@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
@@ -31,7 +32,7 @@ namespace Zdimk.Services
         public string GetPictureUrl(Guid pictureId, string fileExtension)
         {
             FixFileExtension(ref fileExtension);
-            return Path.Combine(_baseUrl, _options.PictureFolderName, pictureId + fileExtension);
+            return  _baseUrl + "/" + _options.PictureFolderName + "/" + pictureId + fileExtension;
         }
 
         private string GetBaseUrl(IHttpContextAccessor contextAccessor)

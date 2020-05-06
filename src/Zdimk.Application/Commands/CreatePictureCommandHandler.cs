@@ -26,6 +26,7 @@ namespace Zdimk.Application.Commands
         {
             Picture picture = new Picture
             {
+                Id = Guid.NewGuid(),
                 Name = request.Name,
                 Description = request.Description,
                 Extension = Path.GetExtension(request.PictureFile.FileName),

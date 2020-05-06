@@ -8,5 +8,7 @@
         public const string GetJwtAccessTokenUrl = "Auth/GetJwtAccessToken";
         public const string CreateImage = "Gallery/CreatePicture";
         public const string BaseApiUrl = "https://localhost:5001";
+        public const string CreateAlbum = "Gallery/CreateAlbum";
+        public const string ActivateRefreshToken = "/Auth/RegisterJwtRefreshToken";
     }
 }

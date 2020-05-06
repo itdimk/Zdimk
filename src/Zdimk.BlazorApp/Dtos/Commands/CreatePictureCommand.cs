@@ -8,7 +8,7 @@ namespace Zdimk.BlazorApp.Dtos.Commands
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public string AlbumId { get; set; }
+        public Guid AlbumId { get; set; }
         public IFileListEntry PictureFile { get; set; }
     }
 }

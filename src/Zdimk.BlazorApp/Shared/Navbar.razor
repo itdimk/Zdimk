@@ -1,33 +1,40 @@
 ﻿<div class="navbar-container">
-    <nav class="navbar-nav">
-        <span class="navbar-hamburger" @onclick=ToggleIsCollapsed>
-            <span class="navbar-hamburger-line"></span>
-            <span class="navbar-hamburger-line"></span>
-            <span class="navbar-hamburger-line"></span>
-        </span>
+   
+    <span class="hamburger" @onclick=ToggleIsCollapsed>
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+    </span>
 
-        <ul class="navbar-link-list @NavListCollapsedToggleCss">
-            <li class="navbar-link">
-                <a href="/">Home</a>
-            </li>
-            <li class="navbar-link">
-                <a href="/upload-picture">Upload</a>
-            </li>
-            <li class="navbar-link navbar-link-right">
-                <a href="/auth">Sign in</a>
+    <nav class="navbar @IsCollapsedToggleCss">
+        
+        <ul class="nav-list">
+            <li class="nav-item"><a class="link" href="/">Home</a></li>
+            <li class="nav-item"><a class="link" href="/upload-picture">Upload</a>
             </li>
         </ul>
+
+        <ul class="nav-list-right">
+            <li class="nav-item">
+                @if (!string.IsNullOrEmpty(AuthorizedUserName))
+                {
+                    <a class="link" href="/users/@AuthorizedUserName"> @AuthorizedUserName </a>
+                }
+                else
+                {
+                    <a class="link" href="/auth">Sign in</a>
+                }
+
+            </li>
+        </ul>
+
     </nav>
 </div>
 
 @code {
 
-    bool IsCollapsed = true;
-    string NavListCollapsedToggleCss => IsCollapsed ? "navbar-link-list-collapsed" : "";
 
-    private void ToggleIsCollapsed()
-    {
-        IsCollapsed = !IsCollapsed;
-        StateHasChanged();
-    }
+    string IsCollapsedToggleCss => IsCollapsed ? "is-collapsed" : "";
+
+
 }

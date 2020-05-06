@@ -52,10 +52,10 @@ namespace Zdimk.Domain.Extensions
             {
                 Id = picture.Id,
                 Name = picture.Name,
+                Url = url,
                 Description = picture.Description,
                 Created = picture.Created,
                 AlbumId = picture.AlbumId,
-                OwnerId = picture.Album.Owner.Id
             };
         }
     }

@@ -23,6 +23,7 @@ namespace Zdimk.Application.Commands
         {
             var user = new User
             {
+                Id = Guid.NewGuid(),
                 UserName = request.UserName,
                 FullName = request.FullName,
                 RegistrationDate = DateTimeOffset.UtcNow,

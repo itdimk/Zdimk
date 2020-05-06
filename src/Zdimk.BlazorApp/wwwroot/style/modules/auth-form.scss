@@ -1,0 +1,22 @@
+﻿.auth-form {
+  width: 100vw;
+  max-width: 25rem;
+  
+  .link-under-input {
+    text-decoration: underline;
+    display: block;
+    text-align: right; 
+    width: 100%;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-top: 0.1rem;
+    color: #444444;
+  }
+  
+  
+  input[type="text"], input[type="password"] {
+    width: 100%;
+    margin-left: 0;
+  }
+  
+}

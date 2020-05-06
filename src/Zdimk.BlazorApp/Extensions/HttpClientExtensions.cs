@@ -17,7 +17,7 @@ namespace Zdimk.BlazorApp.Extensions
             AuthenticationHeaderValue authHeaderValue = null)
             where TRequest : class
         {
-            HttpRequestMessage request = await CreateRequestMessage(requestUrl, requestModel, authHeaderValue);
+            HttpRequestMessage request = CreateRequestMessage(requestUrl, requestModel, authHeaderValue);
             await client.SendAsync(request);
         }
 
@@ -26,7 +26,7 @@ namespace Zdimk.BlazorApp.Extensions
             where TRequest : class
             where TResponse : class
         {
-            HttpRequestMessage request = await CreateRequestMessage(requestUrl, requestModel, authHeaderValue);
+            HttpRequestMessage request = CreateRequestMessage(requestUrl, requestModel, authHeaderValue);
             HttpResponseMessage response = await client.SendAsync(request);
 
             if (response.StatusCode != HttpStatusCode.OK) return null;
@@ -38,7 +38,7 @@ namespace Zdimk.BlazorApp.Extensions
             }
         }
 
-        private static async Task<HttpRequestMessage> CreateRequestMessage<TRequest>(Uri requestUrl,
+        private static HttpRequestMessage CreateRequestMessage<TRequest>(Uri requestUrl,
             TRequest requestModel, AuthenticationHeaderValue authHeaderValue = null)
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, requestUrl);

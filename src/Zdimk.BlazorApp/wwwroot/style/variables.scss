@@ -1,0 +1,44 @@
+﻿$screen-size: (
+        xs: 575px,
+        sm: 767px,
+        md: 991px,
+        lg: 1199px
+);
+
+$colors: (
+        bg-body: #edeef0,
+        bg-block: white,
+        bg-button: transparent,
+        bg-block-headline: #DDDDDD,
+        bg-button-hover: #DDDDDD,
+        bg-navbar: rgba(40, 40, 40, 0.9),
+        bg-navbar-gap: #AAAAAA,
+        text-nav-link: #DDDDDD,
+        text-nav-link-hover: lightcoral,
+);
+
+$sizes: (
+        navbar-height: 3.5rem,
+        nav-hamburger-w: 2.5rem,
+        nav-hamburger-h: 3rem,
+);
+
+$durations: (
+        hover-highlight: 0.4s
+);
+
+@function screen-size($size) {
+  @return map-get($screen-size, $size);
+}
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+@function size($size-name) {
+  @return map-get($sizes, $size-name);
+}
+
+@function duration($duration-name) {
+  @return map-get($durations, $duration-name);
+}

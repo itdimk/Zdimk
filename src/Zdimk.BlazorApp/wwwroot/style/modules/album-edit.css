@@ -1,0 +1,18 @@
+.album-edit .buttons {
+  display: inline-flex;
+  align-items: center;
+}
+.album-edit .album-cover {
+  min-width: 5rem;
+}
+.album-edit input[type=text], .album-edit textarea {
+  width: 95%;
+  max-width: 25rem;
+  min-width: 2rem;
+}
+.album-edit textarea {
+  height: 5rem;
+  max-height: 10rem;
+}
+
+/*# sourceMappingURL=album-edit.css.map */

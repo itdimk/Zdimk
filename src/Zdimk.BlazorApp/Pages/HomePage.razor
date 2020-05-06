@@ -1,0 +1,44 @@
+﻿@page "/"
+@using Zdimk.BlazorApp.Abstractions
+@inject  IUserService UserService
+
+<div class="l-home-page">
+    <div class="block">
+
+        <header class="block-header">
+            <p> @Title </p>
+            <div class="block-header-button-list">
+                <a href="#" class="block-header-button icon-only add-icon" @onclick=ToggleBlockBody title="Add album"/>
+            </div>
+        </header>
+
+        <div class="block-body">
+            <div class=@ShowAlbumViewCss>
+                <AlbumGrid UserId=this.UserId/>
+            </div>
+            <div class=@ShowAlbumEditCss>
+                <AlbumForm/>
+            </div>
+        </div>
+
+    </div>
+
+    <section class="block">
+        <header class="block-header">
+            <p> Tags </p>
+        </header>
+        <div class="block-body">
+            Nothing yet...
+        </div>
+    </section>
+
+</div>
+
+@code {
+
+    bool _showAlbumView { get; set; } = true;
+    bool _showAlbumEdit { get; set; } = false;
+
+    string ShowAlbumViewCss => _showAlbumView ? "" : "collapsed";
+    string ShowAlbumEditCss => _showAlbumEdit ? "" : "collapsed";
+}

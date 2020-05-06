@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Zdimk.Application.Constants;
+using Zdimk.Domain.Entities;
 using Zdimk.Services.Configuration;
 
 namespace Zdimk.Services
@@ -29,7 +31,7 @@ namespace Zdimk.Services
 
             JwtSecurityToken token;
             if (purpose == JwtSecurityTokenPurposes.Access)
-                token = await Task.Run(() => GenerateAccessToken(privateKey, manager, user));
+                token = await Task.Run(() => GenerateAccessTokenAsync(privateKey, manager, user));
             else if (purpose == JwtSecurityTokenPurposes.Refresh)
                 token = await Task.Run(() => GenerateRefreshToken(privateKey, manager, user));
             else
@@ -48,7 +50,8 @@ namespace Zdimk.Services
                 {
                     ValidIssuer = _options.Issuer,
                     ValidAudience = GetValidAudience(purpose),
-                    IssuerSigningKey = new SymmetricSecurityKey(_options.PrivateKey)
+                    IssuerSigningKey = new SymmetricSecurityKey(_options.PrivateKey), 
+                    ValidateLifetime = true
                 }, out SecurityToken validatedToken);
 
                 return validatedToken != null;
@@ -64,15 +67,18 @@ namespace Zdimk.Services
             throw new NotImplementedException();
         }
 
-        private JwtSecurityToken GenerateAccessToken(SymmetricSecurityKey key, UserManager<TUser> manager, TUser user)
+        private async Task<JwtSecurityToken> GenerateAccessTokenAsync(SymmetricSecurityKey key, UserManager<TUser> manager, TUser user)
         {
             var signingCredentials = new SigningCredentials(key, _options.AccessTokenSigningAlgorithm);
-
+            IList<string> roles = await manager.GetRolesAsync(user);
+            
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName)
             };
-
+            claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
+            
             return new JwtSecurityToken(
                 issuer: _options.Issuer,
                 audience: _options.AccessTokenAudience,
@@ -81,13 +87,14 @@ namespace Zdimk.Services
                 signingCredentials: signingCredentials);
         }
 
-        private JwtSecurityToken GenerateRefreshToken(SymmetricSecurityKey key, UserManager<TUser> manager, TUser user)
+        private  JwtSecurityToken GenerateRefreshToken(SymmetricSecurityKey key, UserManager<TUser> manager, TUser user)
         {
             var signingCredentials = new SigningCredentials(key, _options.RefreshTokenSigningAlgorithm);
-
+            
             var claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
             };
 
             return new JwtSecurityToken(

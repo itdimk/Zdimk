@@ -54,7 +54,7 @@ namespace Zdimk.BlazorApp.Services
                 authHeader);
         }
 
-        public async Task<bool> UploadPicture(CreatePictureCommand command)
+        public async Task<PictureDto> UploadPicture(CreatePictureCommand command)
         {
             Uri requestUrl = new Uri(_httpClient.BaseAddress, ApiConstants.CreateImage);
 
@@ -70,37 +70,39 @@ namespace Zdimk.BlazorApp.Services
                 fileBytes = stream.ToArray();
             }
 
-            form.Add(new StringContent(command.AlbumId), nameof(command.AlbumId).ToLower());
+            form.Add(new StringContent(command.AlbumId.ToString()), nameof(command.AlbumId).ToLower());
             form.Add(new StringContent(command.Name), nameof(command.Name).ToLower());
             form.Add(new StringContent(command.Description + "111"), nameof(command.Description).ToLower());
             form.Add(new ByteArrayContent(fileBytes, 0, fileBytes.Length), nameof(command.PictureFile),
                 command.PictureFile.Name);
 
-            HttpRequestMessage request = await CreateRequestMessage(requestUrl, form, authHeader);
+            HttpRequestMessage request = CreateRequestMessage(requestUrl, form, authHeader);
             HttpResponseMessage response = await _httpClient.SendAsync(request);
 
             response.EnsureSuccessStatusCode();
 
-            return true;
+            return JsonSerializer.Deserialize<PictureDto>(await response.Content.ReadAsStringAsync(),
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
         }
+        
 
-        public async Task<bool> UploadPictures(IList<CreatePictureCommand> commands)
+        public async Task<bool> CreateAlbum(CreateAlbumCommand command)
         {
-            foreach (var command in commands)
-            {
-                if (!await UploadPicture(command))
-                    return false;
-            }
+            Uri requestUrl = new Uri(_httpClient.BaseAddress, ApiConstants.CreateAlbum);
 
-            return true;
+            string token = await _localStore.GetItemAsync<string>(_securityOptions.AccessTokenName);
+            AuthenticationHeaderValue authHeader = new AuthenticationHeaderValue("Bearer", token);
+
+            AlbumDto result = await _httpClient.PostAsJsonAsync<CreateAlbumCommand, AlbumDto>(requestUrl, command,
+                authHeader);
+
+            return result != null;
         }
 
-        public Task<bool> CreateAlbum(CreateAlbumCommand command)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static async Task<HttpRequestMessage> CreateRequestMessage(Uri requestUrl, MultipartContent multipart,
+        private static HttpRequestMessage CreateRequestMessage(Uri requestUrl, MultipartContent multipart,
             AuthenticationHeaderValue authHeaderValue = null)
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, requestUrl);
@@ -109,7 +111,6 @@ namespace Zdimk.BlazorApp.Services
                 requestMessage.Headers.Authorization = authHeaderValue;
 
             requestMessage.Content = multipart;
-            // requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("multipart/form-data");
 
             return requestMessage;
         }

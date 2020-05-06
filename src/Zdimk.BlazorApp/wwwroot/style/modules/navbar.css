@@ -1,0 +1,101 @@
+.navbar-container {
+  width: 100%;
+  height: 3.5rem;
+}
+.navbar-container .hamburger {
+  display: none;
+}
+.navbar-container .navbar {
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  align-items: center;
+  color: #DDDDDD;
+  justify-content: space-between;
+  background-color: rgba(40, 40, 40, 0.9);
+}
+.navbar-container .navbar .nav-list {
+  display: inline-flex;
+  order: 1;
+}
+.navbar-container .navbar .nav-list-right {
+  display: inline-flex;
+  order: 2;
+}
+.navbar-container .navbar .nav-item {
+  margin: 0 2rem;
+}
+.navbar-container .navbar .nav-item .link {
+  color: inherit;
+  font-size: 1.2rem;
+  transition: color 0.4s ease;
+}
+.navbar-container .navbar .nav-item .link:hover {
+  color: lightcoral;
+}
+
+@media screen and (max-width: 767px) {
+  .navbar-container {
+    position: relative;
+    background: rgba(40, 40, 40, 0.9);
+    width: 100%;
+  }
+  .navbar-container .hamburger {
+    display: flex;
+    flex-direction: column;
+    order: 3;
+    cursor: pointer;
+    position: fixed;
+    right: 1rem;
+    top: 0.7rem;
+  }
+  .navbar-container .hamburger .line {
+    display: block;
+    background-color: white;
+    height: 2px;
+    width: 2.5rem;
+    margin: 4px 0;
+    transition: background-color 0.4s ease;
+  }
+  .navbar-container .hamburger:hover .line {
+    background-color: lightcoral;
+  }
+  .navbar-container .navbar {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    align-items: center;
+    right: 0;
+    margin-top: 3.5rem;
+    height: 100%;
+    width: 60%;
+    justify-content: center;
+    background: rgba(40, 40, 40, 0.9);
+  }
+  .navbar-container .navbar .nav-list, .navbar-container .navbar .nav-list-right {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(40, 40, 40, 0.9);
+    align-items: center;
+    width: 100%;
+  }
+  .navbar-container .navbar .nav-item {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #AAAAAA;
+    border-top: 1px solid #AAAAAA;
+  }
+  .navbar-container .navbar .nav-item > * {
+    width: 100%;
+    padding: 1.8rem 0;
+    display: block;
+    text-align: inherit;
+  }
+}
+@media screen and (max-width: 767px) and (max-aspect-ratio: 9/17) {
+  .navbar-container .navbar {
+    width: 100%;
+  }
+}
+
+/*# sourceMappingURL=navbar.css.map */

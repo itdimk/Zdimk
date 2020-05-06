@@ -4,11 +4,11 @@ namespace Zdimk.BlazorApp.Dtos
 {
     public class UserPrivateDto
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public Guid Id { get; set; }
+        public string FullName { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
-        public DateTimeOffset BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
         public DateTimeOffset RegistrationDate { get; set; }
         public DateTimeOffset LastLoginDate { get; set; }
     }

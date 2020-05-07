@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Net.Mime;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Zdimk.Application.Commands;
-using Zdimk.Application.Queries;
-using Zdimk.Domain.Dtos;
+using Zdimk.Abstractions.Commands;
+using Zdimk.Abstractions.Dtos;
+using Zdimk.Abstractions.Queries;
+
 
 namespace Zdimk.WebApi.Controllers
 {

@@ -1,10 +1,12 @@
 ﻿@import "base.css";
-@import "layouts.css";
-@import "states.css";
 @import "icons/icons.css";
+
+@import "layouts/add-album.css";
+@import "layouts/albums-page.css";
+
+@import "states.css";
+
 @import "modules/common.css";
-@import "modules/blocks.css";
 @import "modules/navbar.css";
-@import "modules/album-edit.css";
 @import "modules/auth-form.css";
 @import "modules/album-card.css";

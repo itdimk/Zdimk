@@ -4,9 +4,11 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Zdimk.Application.Commands;
-using Zdimk.Application.Dtos;
-using Zdimk.Application.Queries;
+using Zdimk.Abstractions.Commands;
+using Zdimk.Abstractions.Dtos;
+using Zdimk.Abstractions.Queries;
+using Zdimk.Application.CommandHandlers;
+using Zdimk.Application.QueryHandlers;
 
 namespace Zdimk.WebApi.Controllers
 {
@@ -22,20 +24,20 @@ namespace Zdimk.WebApi.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult<JwtTokenPair>> GetJwtTokenPair(GetJwtTokenPairQuery query)
+        public async Task<ActionResult<JwtTokenPair>> GetJwtTokenPair(GetTokenPairQuery query)
         {
             return await _mediator.Send(query);
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> GetJwtAccessToken(GetJwtAccessTokenQuery query)
+        public async Task<ActionResult<string>> GetJwtAccessToken(GetAccessTokenQuery query)
         {
             return await _mediator.Send(query);
         }
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = "Bearer")]
-        public async Task<ActionResult> RegisterJwtRefreshToken(ActivateJwtRefreshTokenCommand command)
+        public async Task<ActionResult> RegisterJwtRefreshToken(ActivateRefreshTokenCommand command)
         {
             return Ok(await _mediator.Send(command));
         }

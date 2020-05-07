@@ -1,15 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>netstandard2.1</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentValidation" Version="8.6.2" />
       <PackageReference Include="MediatR" Version="8.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.5.0" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Zdimk.Abstractions\Zdimk.Abstractions.csproj" />
       <ProjectReference Include="..\Zdimk.DataAccess\Zdimk.DataAccess.csproj" />
       <ProjectReference Include="..\Zdimk.Domain\Zdimk.Domain.csproj" />
     </ItemGroup>

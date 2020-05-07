@@ -12,42 +12,27 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Zdimk.BlazorApp.Abstractions;
-using Zdimk.BlazorApp.Services;
-using Zdimk.BlazorApp.Services.Configuration;
+using Zdimk.Application.Frontend.Services;
 
 namespace Zdimk.BlazorApp
 {
     public class Startup
     {
+        private IConfiguration Configuration { get; }
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<KestrelServerOptions>(Configuration.GetSection("Kestrel"));
-
-            services.Configure<SecurityOptions>(opts =>
-            {
-                opts.AccessTokenName = "jwt-access";
-                opts.RefreshTokenName = "jwt-refresh";
-            });
-            
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
             services.AddBlazoredLocalStorage();
             
-
-            services.AddHttpClient<IGalleryService, GalleryService>(h =>
-                h.BaseAddress = new Uri(ApiConstants.BaseApiUrl));
-
-            services.AddHttpClient<IUserService, UserService>(h =>
-                h.BaseAddress = new Uri(ApiConstants.BaseApiUrl));
+            services.AddHttpClient<IAuthService, AuthService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

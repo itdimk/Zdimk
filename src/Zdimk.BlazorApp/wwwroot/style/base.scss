@@ -89,7 +89,7 @@ body {
   }
 }
 
- 
+
 input {
   &[type="text"], &[type="password"] {
     display: block;
@@ -125,7 +125,7 @@ textarea {
   margin: 1rem 0.5rem;
   background: white;
   padding: 0.2rem 0.5rem;
-  resize:vertical;
+  resize: vertical;
   min-height: 2rem;
 
   &:focus, &:hover {
@@ -163,5 +163,7 @@ img {
 .collapsed {
   display: none !important;
 }
+
+
 
  

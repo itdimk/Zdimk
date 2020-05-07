@@ -11,10 +11,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Zdimk.Application.Commands;
+using Zdimk.Abstractions.Commands;
+using Zdimk.Application.CommandHandlers;
+using Zdimk.Application.Implementations.Configuration;
 using Zdimk.DataAccess;
 using Zdimk.Domain.Entities;
-using Zdimk.Services.Configuration;
 using Zdimk.WebApi.Extensions;
 
 namespace Zdimk.WebApi
@@ -34,33 +35,7 @@ namespace Zdimk.WebApi
             services.Configure<PictureServiceOptions>(op => op.PictureFolderName = "images");
             
             services.AddControllers();
-            services.AddSwaggerGen(opts =>
-            {
-                opts.SwaggerDoc("v1", new OpenApiInfo());
-                
-                opts.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    BearerFormat = "jwt",
-                    Description = "Bearer authorization",
-                    In = ParameterLocation.Header ,
-                    Name = "Bearer" ,
-                    Scheme = "Bearer" ,
-                    Type = SecuritySchemeType.Http ,
-                });
-                
-                opts.AddSecurityRequirement(new OpenApiSecurityRequirement()
-                {
-                    {new OpenApiSecurityScheme
-                    {
-                        BearerFormat = "jwt",
-                        Description = "Bearer auth",
-                        In = ParameterLocation.Header,
-                        Name = "Bearer",
-                        Scheme = "Bearer",
-                        Type = SecuritySchemeType.Http,
-                    }, new List<string>()}
-                });
-            });
+            services.AddSwaggerGenerator();
 
             services.AddHttpContextAccessor();
             services.AddPictureService();
@@ -80,7 +55,7 @@ namespace Zdimk.WebApi
                 opt.RefreshTokenLifetime = TimeSpan.FromMinutes(50);
             });
             
-            services.AddDbContext<ZdimkDbContext>(opts => opts
+            services.AddDbContext<MainDbContext>(opts => opts
                 .UseNpgsql(Configuration.GetConnectionString("Default"))
                 .UseLazyLoadingProxies());
         }

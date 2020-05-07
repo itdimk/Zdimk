@@ -1,0 +1,23 @@
+.l-add-album {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: minmax(20rem, 1fr) 4rem;
+  grid-gap: 2rem;
+}
+.l-add-album .l-cover {
+  grid-column: 1/2;
+  justify-self: end;
+  align-self: center;
+}
+.l-add-album .l-form {
+  width: 100%;
+  grid-column: 2/3;
+  align-self: center;
+  justify-self: start;
+}
+.l-add-album .l-buttons {
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+/*# sourceMappingURL=add-album.css.map */

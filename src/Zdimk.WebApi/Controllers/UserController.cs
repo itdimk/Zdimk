@@ -1,10 +1,11 @@
-﻿using System.Net.Mime;
+﻿using System;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Zdimk.Application.Commands;
-using Zdimk.Domain.Dtos;
-using Zdimk.Services;
+using Zdimk.Abstractions.Commands;
+using Zdimk.Abstractions.Dtos;
+using Zdimk.Abstractions.Queries;
 
 namespace Zdimk.WebApi.Controllers
 {
@@ -25,6 +26,12 @@ namespace Zdimk.WebApi.Controllers
         public async Task<ActionResult<UserPrivateDto>> CreateUser(CreateUserCommand command)
         {
             return await _mediator.Send(command);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Guid>> GetUserId(GetUserIdQuery query)
+        {
+            return await _mediator.Send(query);
         }
     }
 }

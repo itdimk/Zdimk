@@ -1,18 +1,19 @@
 ﻿@using Zdimk.BlazorApp.Abstractions
+@using Zdimk.BlazorApp.Dtos
 @inject IGalleryService Gallery
 
 <div class="l-album-view">
-    @if (Model != null)
+    @if (Pictures != null)
     {
-        @foreach (var picture in Model)
+        @foreach (var picture in Pictures)
         {
             <div class="album-card">
                 <div class="album-info">
-                    <p class="album-name">@picture.Name</p>
-                    <p class="album-description">@picture.Description</p>
+                    <p class="name">@picture.Name</p>
+                    <p class="description">@picture.Description</p>
                 </div>
 
-                <img class="album-cover" src="@picture.Url" alt="Album cover"/>
+                <img class="album-cover" @onclick="async () => await ShowFullPicture(picture.Url)" src="@picture.Url" alt="Album cover" />
             </div>
         }
     }
@@ -21,10 +22,15 @@
         <h3>Nothing here yet...</h3>
     }
 </div>
+
 }
 
 @code
 {
     [Parameter]
     public Guid AlbumId { get; set; }
+    
+    [Parameter]
+    public Func<string, Task> ShowFullPicture { get; set; }
+    
 }

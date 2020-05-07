@@ -95,6 +95,20 @@
       <Content Update="Pages\PicturesPage.razor">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </Content>
+      <Content Update="wwwroot\style\modules\album-card.scss">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+      <Content Update="wwwroot\style\modules\modal.scss">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+      <Content Update="Shared\FullPicture.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
+      <Content Update="Shared\UploadPictureGrid.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      </Content>
     </ItemGroup>
 
 </Project>

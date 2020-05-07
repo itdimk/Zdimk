@@ -1,0 +1,49 @@
+﻿@import "../variables";
+
+.album-card {
+
+  position: relative;
+  transition: margin duration(hover-upscaling) ease;
+  overflow: hidden;
+  
+  &:hover {
+    margin: -1rem;
+    
+  }
+  
+  &:hover  .album-info  .description {
+    bottom: 0;
+  }
+  
+  &:hover .album-info  .name {
+    bottom: unset;
+    top: 0;
+  }
+  
+  .album-info {
+    
+    .name {
+      position: absolute;
+      bottom: 0;
+      color: white;
+      background: color(bg-album-card-info);
+      width: 100%;
+      text-align: center;
+    }
+    
+    .description {
+      position: absolute;
+      bottom: -1.5rem;
+      text-overflow: ellipsis;
+      color: white;
+      background: color(bg-album-card-info);
+      width: 100%;
+      transition: bottom duration(hover-sliding) ease;
+    }
+  }
+  
+  .album-cover {
+    width: 100%;
+    
+  }
+}

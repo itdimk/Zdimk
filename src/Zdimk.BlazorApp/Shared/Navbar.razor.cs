@@ -20,9 +20,14 @@ namespace Zdimk.BlazorApp.Shared
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            var authState = await UserService.GetAuthenticationStateAsync();
-            AuthorizedUserName = authState.User.FindFirstValue(ClaimTypes.Name);
-            StateHasChanged();
+            if (firstRender)
+            {
+                var authState = await UserService.GetAuthenticationStateAsync();
+                AuthorizedUserName = authState.User.FindFirstValue(ClaimTypes.Name);
+                StateHasChanged();
+            }
+
+            await base.OnAfterRenderAsync(firstRender);
         }
     }
 }

@@ -18,7 +18,8 @@ namespace Zdimk.BlazorApp.Extensions
             where TRequest : class
         {
             HttpRequestMessage request = CreateRequestMessage(requestUrl, requestModel, authHeaderValue);
-            await client.SendAsync(request);
+            var response = await client.SendAsync(request);
+            response.EnsureSuccessStatusCode();
         }
 
         public static async Task<TResponse> PostAsJsonAsync<TRequest, TResponse>(this HttpClient client, Uri requestUrl,
@@ -31,11 +32,15 @@ namespace Zdimk.BlazorApp.Extensions
 
             if (response.StatusCode != HttpStatusCode.OK) return null;
 
-            await using (Stream responseStream = await response.Content.ReadAsStreamAsync())
+            string responseString = await response.Content.ReadAsStringAsync();
+
+            if (typeof(TResponse) == typeof(string))
+                return responseString as TResponse;
+
+            return JsonSerializer.Deserialize<TResponse>(responseString, new JsonSerializerOptions
             {
-                return await JsonSerializer.DeserializeAsync<TResponse>(responseStream,
-                    new JsonSerializerOptions {PropertyNameCaseInsensitive = true});
-            }
+                PropertyNameCaseInsensitive = true
+            });
         }
 
         private static HttpRequestMessage CreateRequestMessage<TRequest>(Uri requestUrl,

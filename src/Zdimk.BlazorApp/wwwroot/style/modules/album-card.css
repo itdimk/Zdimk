@@ -1,0 +1,37 @@
+.album-card {
+  position: relative;
+  transition: margin 0.3s ease;
+  overflow: hidden;
+}
+.album-card:hover {
+  margin: -1rem;
+}
+.album-card:hover .album-info .description {
+  bottom: 0;
+}
+.album-card:hover .album-info .name {
+  bottom: unset;
+  top: 0;
+}
+.album-card .album-info .name {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  text-align: center;
+}
+.album-card .album-info .description {
+  position: absolute;
+  bottom: -1.5rem;
+  text-overflow: ellipsis;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  transition: bottom 0.5s ease;
+}
+.album-card .album-cover {
+  width: 100%;
+}
+
+/*# sourceMappingURL=album-card.css.map */

@@ -38,19 +38,19 @@ namespace Zdimk.BlazorApp.Services
 
             if (tokenPair != null)
             {
-                await _localStore.SetItemAsync(_securityOptions.RefreshTokenName, tokenPair.RefreshToken);
-                await _localStore.SetItemAsync(_securityOptions.AccessTokenName, tokenPair.AccessToken);
-
-                
+                  
                 var cmd = new ActivateJwtRefreshTokenCommand
                 {
                     RefreshToken = tokenPair.RefreshToken,
-                    Thumbprint = "12345"
+                    Thumbprint = "12345"// TODO: make HWID
                 };
                 
                 AuthenticationHeaderValue authHeader = new AuthenticationHeaderValue("Bearer", tokenPair.AccessToken);
                 Uri activateTokenUrl = new Uri(_httpClient.BaseAddress, ApiConstants.ActivateRefreshToken);
                 _httpClient.PostAsJsonAsync(activateTokenUrl, cmd, authHeader);
+                
+                await _localStore.SetItemAsync(_securityOptions.RefreshTokenName, tokenPair.RefreshToken);
+                await _localStore.SetItemAsync(_securityOptions.AccessTokenName, tokenPair.AccessToken);
                 
                 return true;
             }
@@ -63,7 +63,7 @@ namespace Zdimk.BlazorApp.Services
             var tokenString = await _localStore.GetItemAsync<string>(_securityOptions.AccessTokenName);
             var token = new JwtSecurityToken(tokenString);
 
-            if (token.ValidTo > DateTime.UtcNow + TimeSpan.FromMinutes(1))
+            if (token.ValidTo < DateTime.UtcNow + TimeSpan.FromMinutes(1))
             {
                 await RefreshAccessToken();
                 tokenString = await _localStore.GetItemAsync<string>(_securityOptions.AccessTokenName);
@@ -94,7 +94,7 @@ namespace Zdimk.BlazorApp.Services
 
         private async Task RefreshAccessToken()
         {
-            var refreshTokenString = await _localStore.GetItemAsync<string>(_securityOptions.AccessTokenName);
+            var refreshTokenString = await _localStore.GetItemAsync<string>(_securityOptions.RefreshTokenName);
             var refreshToken = new JwtSecurityToken(refreshTokenString);
 
             if (refreshToken.ValidTo > DateTime.UtcNow)
@@ -103,7 +103,8 @@ namespace Zdimk.BlazorApp.Services
                 var accessToken = await _httpClient.PostAsJsonAsync<GetJwtAccessTokenQuery, string>(requestUrl,
                     new GetJwtAccessTokenQuery()
                     {
-                        JwtRefreshToken = refreshTokenString
+                        JwtRefreshToken = refreshTokenString,
+                        Thumbprint = "12345" // TODO: make HWID
                     });
 
                 if (accessToken != null)

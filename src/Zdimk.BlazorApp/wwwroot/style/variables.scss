@@ -15,6 +15,8 @@ $colors: (
         bg-navbar-gap: #AAAAAA,
         text-nav-link: #DDDDDD,
         text-nav-link-hover: lightcoral,
+        bg-album-card-info: rgba(0, 0, 0, 0.5),
+        text-album-card: rgba(0, 0, 0, 0.5)
 );
 
 $sizes: (
@@ -24,7 +26,9 @@ $sizes: (
 );
 
 $durations: (
-        hover-highlight: 0.4s
+        hover-highlight: 0.4s,
+        hover-upscaling: 0.3s,
+        hover-sliding: 0.5s
 );
 
 @function screen-size($size) {

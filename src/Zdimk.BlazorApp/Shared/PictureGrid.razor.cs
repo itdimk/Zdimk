@@ -10,11 +10,11 @@ namespace Zdimk.BlazorApp.Shared
 {
     public partial class PictureGrid
     {
-        [Parameter] public ICollection<PictureDto> Model { get; set; }
+        [Parameter] public ICollection<PictureDto> Pictures { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (Model == null && firstRender)
+            if (Pictures == null && firstRender)
             {
                 var query = new GetPicturesQuery
                 {
@@ -23,7 +23,8 @@ namespace Zdimk.BlazorApp.Shared
                     Offset = 1
                 };
 
-                Model = await Gallery.GetPicturesAsync(query);
+                Pictures = await Gallery.GetPicturesAsync(query);
+                StateHasChanged();
             }
         }
     }

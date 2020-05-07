@@ -14,12 +14,14 @@ namespace Zdimk.BlazorApp.Pages
     public partial class PicturesPage
     {
         private List<PictureDto> Pictures { get; set; }
-            = new List<PictureDto>();
-
+    private  List<PictureDto> JustUploaded { get; set; } =  new List<PictureDto>();
+        
         private async void OnFileChanged(IFileListEntry[] files)
         {
             if (files != null)
             {
+               
+                UploadMode = true;
                 var commands = files.Select(f => new CreatePictureCommand()
                 {
                     PictureFile = f,
@@ -34,7 +36,7 @@ namespace Zdimk.BlazorApp.Pages
 
                     if (picture != null)
                     {
-                        Pictures.Add(picture);
+                        JustUploaded.Add(picture);
                         StateHasChanged();
                     }
                 }
@@ -52,6 +54,7 @@ namespace Zdimk.BlazorApp.Pages
                 var pictures = await Gallery.GetPicturesAsync(query);
                 if (pictures != null)
                 {
+                    Pictures = new List<PictureDto>();
                     Pictures.AddRange(pictures);
                     StateHasChanged();
                 }
@@ -61,6 +64,13 @@ namespace Zdimk.BlazorApp.Pages
         private async void ShowOpenFileDialog()
         {
             await JsInterop.InvokeAsync<string>("invokeClickFor", new object[] {"fileUpload"});
+        }
+        
+        private async Task  ShowFullPicture(string e)
+        {
+            Shit = !Shit;
+            PictureUrl = e;
+            StateHasChanged();
         }
     }
 }

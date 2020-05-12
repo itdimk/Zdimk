@@ -51,7 +51,7 @@ namespace Zdimk.Application.Frontend.Services
             return false;
         }
 
-        public async Task<ClaimsIdentity> GetAuthenticatedUserAsync()
+        public async Task<ClaimsPrincipal> GetAuthenticatedUserAsync()
         {
             var accessToken = new JwtSecurityToken(await _localStorage.GetAccessTokenAsync());
 
@@ -79,12 +79,17 @@ namespace Zdimk.Application.Frontend.Services
                     new Claim(ClaimTypes.Name, userName),
                 }, "Bearer");
 
-                return identity;
+                return new ClaimsPrincipal(identity);
             }
             else
             {
                 throw new Exception("Invalid access token received");
             }
+        }
+
+        public async Task<bool> IsAuthorizedAsync()
+        {
+            return await GetAuthenticatedUserAsync() != null;
         }
 
         private bool VerifyTokenLifetime(JwtSecurityToken token)

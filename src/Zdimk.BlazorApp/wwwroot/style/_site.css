@@ -1,12 +1,31 @@
 ﻿@import "base.css";
 @import "icons/icons.css";
 
-@import "layouts/add-album.css";
-@import "layouts/albums-page.css";
+@import "layouts/components.css";
+@import "layouts/pages.css";
 
 @import "states.css";
 
-@import "modules/common.css";
+@import "modules/blocks.css";
 @import "modules/navbar.css";
-@import "modules/auth-form.css";
+@import "modules/page-auth.css";
 @import "modules/album-card.css";
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}

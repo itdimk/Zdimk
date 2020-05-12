@@ -27,17 +27,22 @@ namespace Zdimk.Application.Frontend.Extensions
             HttpRequestMessage request = CreateRequestMessage(requestUrl, requestModel, authHeaderValue);
             HttpResponseMessage response = await client.SendAsync(request);
 
-            response.EnsureSuccessStatusCode();
-
-            string responseString = await response.Content.ReadAsStringAsync();
-
-            if (typeof(TResponse) == typeof(string))
-                return responseString as TResponse;
-
-            return JsonSerializer.Deserialize<TResponse>(responseString, new JsonSerializerOptions
+            if (response.IsSuccessStatusCode)
             {
-                PropertyNameCaseInsensitive = true
-            });
+                string responseString = await response.Content.ReadAsStringAsync();
+
+                if (typeof(TResponse) == typeof(string))
+                    return responseString as TResponse;
+
+                return JsonSerializer.Deserialize<TResponse>(responseString, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private static HttpRequestMessage CreateRequestMessage<TRequest>(Uri requestUrl,

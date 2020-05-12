@@ -26,7 +26,7 @@ namespace Zdimk.Application.Frontend.CommandHandlers
         {
             var authHeader = await _localStorage.GetAuthHeaderValueAsync();
             Uri requestUrl = new Uri(_httpClient.BaseAddress, ApiConstants.ActivateRefreshToken);
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, request);
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(requestUrl, request, authHeader);
 
             response.EnsureSuccessStatusCode();
             return Unit.Value;

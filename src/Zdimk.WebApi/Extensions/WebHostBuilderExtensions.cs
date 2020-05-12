@@ -11,7 +11,11 @@ namespace Zdimk.WebApi.Extensions
             builder.ConfigureKestrel(serverOptions =>
             {
                 serverOptions.Listen(IPAddress.Any, 5000,
-                    listenOptions => listenOptions.Protocols = HttpProtocols.Http1);
+                    listenOptions =>
+                    {
+                        listenOptions.UseHttps();
+                        listenOptions.Protocols = HttpProtocols.Http1;
+                    });
             });
         }
     }

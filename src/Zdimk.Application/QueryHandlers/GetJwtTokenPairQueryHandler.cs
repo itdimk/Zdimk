@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Zdimk.Abstractions.Dtos;
 using Zdimk.Abstractions.Queries;
 using Zdimk.Application.Constants;
+using Zdimk.Application.Exceptions;
 using Zdimk.Domain.Entities;
 
 namespace Zdimk.Application.QueryHandlers
@@ -24,24 +25,28 @@ namespace Zdimk.Application.QueryHandlers
         public async Task<JwtTokenPair> Handle(GetTokenPairQuery request, CancellationToken cancellationToken)
         {
             User user;
-            if(request.Login.Contains("@"))
+            if (request.Login.Contains("@"))
                 user = await _userManager.FindByEmailAsync(request.Login);
             else
                 user = await _userManager.FindByNameAsync(request.Login);
 
-            SignInResult signInResult = await _signInManager.PasswordSignInAsync(user, request.Password, false, false);
-
-            if (signInResult == SignInResult.Success)
+            if (user != null)
             {
-                string accessToken =
-                    await _userManager.GenerateUserTokenAsync(user, "jwt", JwtSecurityTokenPurposes.Access);
-                string refreshToken =
-                    await _userManager.GenerateUserTokenAsync(user, "jwt", JwtSecurityTokenPurposes.Refresh);
+                SignInResult signInResult =
+                    await _signInManager.PasswordSignInAsync(user, request.Password, false, false);
 
-                return new JwtTokenPair {AccessToken = accessToken, RefreshToken = refreshToken};
+                if (signInResult == SignInResult.Success)
+                {
+                    string accessToken =
+                        await _userManager.GenerateUserTokenAsync(user, "jwt", JwtSecurityTokenPurposes.Access);
+                    string refreshToken =
+                        await _userManager.GenerateUserTokenAsync(user, "jwt", JwtSecurityTokenPurposes.Refresh);
+
+                    return new JwtTokenPair {AccessToken = accessToken, RefreshToken = refreshToken};
+                }
             }
-            else
-                throw new UnauthorizedAccessException("Incorrect password or login");
+
+            throw new RecordNotFoundException("Incorrect password or login");
         }
     }
 }

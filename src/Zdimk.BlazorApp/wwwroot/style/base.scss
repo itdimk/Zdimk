@@ -164,6 +164,34 @@ img {
   display: none !important;
 }
 
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.centered-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+  min-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
 
 
  

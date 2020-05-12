@@ -2,6 +2,7 @@
   position: relative;
   transition: margin 0.3s ease;
   overflow: hidden;
+  cursor: pointer;
 }
 .album-card:hover {
   margin: -1rem;

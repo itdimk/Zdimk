@@ -30,6 +30,14 @@ namespace Zdimk.Application.Extensions
             };
         }
 
+        public static TagDto ToTagDto(this Tag tag)
+        {
+            return new TagDto
+            {
+                TagName = tag.TagName
+            };
+        }
+
         public static AlbumDto ToAlbumDto(this Album album)
         {
             return new AlbumDto

@@ -1,0 +1,45 @@
+.block {
+  background: white;
+}
+.block .block-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 2rem;
+  border-bottom: 2px solid #DDDDDD;
+  height: 2.6rem;
+  font-size: 1.2rem;
+}
+.block .block-header .block-header-button-list {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding-right: 0.6rem;
+  height: 90%;
+}
+.block .block-header .block-header-button {
+  color: black;
+  border: 1px solid transparent;
+  margin: 0 0.75rem;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background-color 0.4s ease;
+  cursor: pointer;
+}
+.block .block-header .block-header-button.icon-only {
+  height: 1.4rem;
+  width: 1.4rem;
+  margin-right: 0.3rem;
+}
+.block .block-header .block-header-button:hover {
+  background-color: #DDDDDD;
+}
+.block .block-body {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  font-size: 1em;
+}
+
+/*# sourceMappingURL=blocks.css.map */

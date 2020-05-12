@@ -1,0 +1,22 @@
+@using MediatR
+@using Zdimk.Application.Frontend.Services
+@inject IMediator Mediator
+@inject IAuthService Auth
+
+<div class="l-albums-grid">
+    @if (Albums != null)
+    {
+        @foreach (var album in Albums)
+        {
+            <div class="album-card">
+                <div class="album-info">
+                    <p class="name">@album.Name</p>
+                    <p class="description">@album.Description</p>
+                </div>
+                <div class="album-cover">
+                    <img src="https://i.pinimg.com/236x/25/a1/87/25a187e4be20a2416019545dfabf449e--cat-houses-persian-cats.jpg"/>
+                </div>
+            </div>
+        }
+    }
+</div>

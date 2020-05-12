@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Hellang.Middleware.ProblemDetails;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,7 +41,7 @@ namespace Zdimk.WebApi
             services.AddHttpContextAccessor();
             services.AddPictureService();
             
-            services.AddMediatR(typeof(CreateUserCommand));
+            services.AddMediatR(typeof(CreateUserCommand), typeof(CreatePictureCommandHandler));
             
             services.AddAuthorizationBundle<User, Guid>();
             services.AddAuthenticationBundle(opt =>
@@ -58,6 +59,8 @@ namespace Zdimk.WebApi
             services.AddDbContext<MainDbContext>(opts => opts
                 .UseNpgsql(Configuration.GetConnectionString("Default"))
                 .UseLazyLoadingProxies());
+            
+            services.AddHellangProblemDetails();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -79,6 +82,7 @@ namespace Zdimk.WebApi
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseStaticFiles();
+            app.UseProblemDetails();
 
 
             app.UseEndpoints(endpoints =>  endpoints.MapControllers());

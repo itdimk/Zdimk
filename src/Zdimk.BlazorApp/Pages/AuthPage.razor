@@ -1,0 +1,25 @@
+@page "/login"
+@using Zdimk.Application.Frontend.Services
+@inject IAuthService Auth
+@inject NavigationManager NavManager
+
+<div class="centered-screen">
+    <div class="l-page-auth page-auth">
+        <img class="background-image auth-image" src="style/images/auth-bg.jpg" alt="background"/>
+
+
+        <form class="l-form auth-form @IsInvalidDataCss @IsWorkingCss">
+            <label> Login </label>
+            <input  type="text" @bind=Login @onclick=OnInputFocus/>
+
+            <label> Password </label>
+            <input type="password" @bind=Password @onclick=OnInputFocus/>
+        </form>
+
+        <img class="l-picture" src="style/images/sign-in.svg" alt="background"/>
+
+        <div class="l-buttons">
+            <input type="button" value="Send" @onclick=OnSubmit/>
+        </div>
+    </div>
+</div>

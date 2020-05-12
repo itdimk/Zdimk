@@ -12,22 +12,22 @@ namespace Zdimk.BlazorApp.Extensions
         // TODO: ?
         public static void AddCommandHandlers(this IServiceCollection services)
         {
-            services.AddHttpClient<ActivateRefreshTokenCommandHandler>();
-            services.AddHttpClient<CreateAlbumCommandHandler>();
-            services.AddHttpClient<CreatePictureCommandHandler>();
+          //  services.AddHttpClient<ActivateRefreshTokenCommandHandler>();
+          //  services.AddHttpClient<CreateAlbumCommandHandler>();
+          //  services.AddHttpClient<CreatePictureCommandHandler>();
         }
         
         public static void AddQueryHandlers(this IServiceCollection services)
         {
-            services.AddHttpClient<GetAccessTokenQueryHandler>();
-            services.AddHttpClient<GetAlbumsQueryHandler>();
-            services.AddHttpClient<GetPicturesQueryHandler>();
-            services.AddHttpClient<GetTokenPairQueryHandler>();
+         //   services.AddHttpClient<GetAccessTokenQueryHandler>();
+          //  services.AddHttpClient<GetAlbumsQueryHandler>();
+          //  services.AddHttpClient<GetPicturesQueryHandler>();
+          //  services.AddHttpClient<GetTokenPairQueryHandler>();
         }
 
         public static void AddAuthService(this IServiceCollection services)
         {
-            services.AddTransient<IAuthService, AuthService>();
+            services.AddScoped<IAuthService, AuthService>();
         }
         
     }

@@ -25,7 +25,7 @@ namespace Zdimk.Application.Frontend.QueryHandlers
         
         public async Task<JwtTokenPair> Handle(GetTokenPairQuery request, CancellationToken cancellationToken)
         {
-            Uri requestUrl = new Uri(_httpClient.BaseAddress, ApiConstants.GetTokenPairUrl);
+            Uri requestUrl = new Uri(_httpClient.BaseAddress, ApiConstants.GetTokenPairUrl); // TODO: postjsonasync add out parameter
             return await _httpClient.PostAsJsonAsync<GetTokenPairQuery, JwtTokenPair>(requestUrl, request);
         }
     }

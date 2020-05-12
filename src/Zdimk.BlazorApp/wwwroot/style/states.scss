@@ -1,11 +1,28 @@
 ﻿@import "variables";
 
+
+.auth-form {
+  transition: all 0.5s ease;
+}
+
+.auth-form.is-working {
+   color: transparent;
+}
+
+.auth-form.is-invalid {
+  input[type="text"], input[type="password"] {
+    background-color: lightcoral;
+  }
+}
+
 @media screen and(max-width: screen-size(sm)) {
   .navbar {
-    transition: margin-right 0.5s ease;
+    transition: margin-right duration(navbar-slide) ease;
   }
 
   .navbar.is-collapsed {
-    margin-right: -60vw;
+    margin-right: -100vw;
   }
 }
+
+

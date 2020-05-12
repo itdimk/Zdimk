@@ -1,0 +1,33 @@
+@using Zdimk.Application.Frontend.Services
+@inject IAuthService Auth
+
+<div class="navbar-container">
+    <nav class="navbar @IsCollapsedCss">
+
+        <span class="hamburger" @onclick=ToggleIsCollapsed>
+            <span class="line"> </span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </span>
+
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a class="link" href="#"> Home </a>
+            </li>
+        </ul>
+
+        <ul class="nav-list-right">
+            <li class="nav-item">
+                @if (AuthorizedUserName == null)
+                {
+                    <a class="link" href="/login">Sign in</a>
+                }
+                else
+                {
+                    <a class="link" href="/users/@AuthorizedUserName">@AuthorizedUserName</a>
+                }
+            </li>
+        </ul>
+
+    </nav>
+</div>

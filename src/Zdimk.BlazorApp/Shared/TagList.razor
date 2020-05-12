@@ -1,0 +1,12 @@
+@using MediatR
+@inject IMediator Mediator
+
+<ul> 
+@if (Tags != null)
+{
+    @foreach (var tag in Tags)
+    {
+        <li>@tag.TagName</li>
+    }
+}
+</ul>

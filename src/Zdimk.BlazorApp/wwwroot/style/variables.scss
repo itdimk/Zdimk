@@ -28,7 +28,8 @@ $sizes: (
 $durations: (
         hover-highlight: 0.4s,
         hover-upscaling: 0.3s,
-        hover-sliding: 0.5s
+        hover-sliding: 0.5s,
+        navbar-slide: 0.5s
 );
 
 @function screen-size($size) {

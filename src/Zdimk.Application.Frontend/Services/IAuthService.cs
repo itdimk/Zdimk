@@ -7,6 +7,7 @@ namespace Zdimk.Application.Frontend.Services
     {
         Task<bool> SignInAsync(string login, string password);
 
-        Task<ClaimsIdentity> GetAuthenticatedUserAsync();
+        Task<ClaimsPrincipal> GetAuthenticatedUserAsync();
+        Task<bool> IsAuthorizedAsync();
     }
 }

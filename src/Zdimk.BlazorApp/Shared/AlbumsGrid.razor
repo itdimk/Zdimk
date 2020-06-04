@@ -1,7 +1,4 @@
-@using MediatR
-@using Zdimk.Application.Frontend.Services
-@inject IMediator Mediator
-@inject IAuthService Auth
+@using Zdimk.Abstractions.Dtos
 
 <div class="l-albums-grid">
     @if (Albums != null)
@@ -13,10 +10,17 @@
                     <p class="name">@album.Name</p>
                     <p class="description">@album.Description</p>
                 </div>
-                <div class="album-cover">
-                    <img src="https://i.pinimg.com/236x/25/a1/87/25a187e4be20a2416019545dfabf449e--cat-houses-persian-cats.jpg"/>
-                </div>
+                <a href="/albums/@album.Id.ToString()">
+                    <img class="album-cover" src="https://i.pinimg.com/236x/25/a1/87/25a187e4be20a2416019545dfabf449e--cat-houses-persian-cats.jpg"/>
+                </a>
             </div>
         }
     }
 </div>
+
+@code {
+
+    [Parameter]
+    public IEnumerable<AlbumDto> Albums { get; set; }
+
+}

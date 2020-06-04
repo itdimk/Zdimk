@@ -1,6 +1,13 @@
 .add-icon {
   background-image: url("../icons/add.svg");
   background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.close-icon {
+  background-image: url("../icons/close.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
 /*# sourceMappingURL=icons.css.map */

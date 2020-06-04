@@ -37,7 +37,7 @@ namespace Zdimk.Application.QueryHandlers
 
             if (!album.IsPrivate || userId == album.OwnerId)
             {
-                return album.Pictures.Select(p =>
+                return album.Pictures.Skip(request.Offset).Take(request.Count).Select(p =>
                         p.ToPictureDto(_pictureService.GetPictureUrl(p.Id, p.Extension)))
                     .ToArray();
             }

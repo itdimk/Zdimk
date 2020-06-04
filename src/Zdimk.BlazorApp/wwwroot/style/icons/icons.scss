@@ -1,5 +1,16 @@
-﻿.add-icon {
-  background-image: url("../icons/add.svg");
+﻿@mixin icon
+{
   background-size: 100%;
   background-repeat: no-repeat;
 }
+
+.add-icon {
+  background-image: url("../icons/add.svg");
+  @include icon;
+}
+
+.close-icon {
+  background-image: url("../icons/close.svg");
+  @include icon;
+}
+

@@ -1,16 +1,13 @@
-﻿@import "../variables";
-
 .l-page-albums {
   display: grid;
   grid-gap: 1rem;
   margin: 1rem;
   grid-template-columns: 2fr minmax(15rem, 1fr);
-
-  .l-albums-grid {
-    display: grid;
-    grid-gap: 3rem;
-    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-  }
+}
+.l-page-albums .l-albums-grid {
+  display: grid;
+  grid-gap: 3rem;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
 }
 
 .l-page-pictures {
@@ -26,41 +23,33 @@
   grid-template-columns: minmax(auto, 10rem) auto;
   grid-template-rows: 1fr auto;
   grid-gap: 2rem;
-
-  .l-picture {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-  }
-
-  .l-form {
-    grid-column: 2 / 3;
-    width: 100%;
-  }
-
-  .l-buttons {
-    grid-row: 2/ 3;
-    grid-column: 2/3;
-  }
+}
+.l-page-auth .l-picture {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+.l-page-auth .l-form {
+  grid-column: 2/3;
+  width: 100%;
+}
+.l-page-auth .l-buttons {
+  grid-row: 2/3;
+  grid-column: 2/3;
 }
 
-
-
-@media screen and (max-width: screen-size(sm)) {
-
+@media screen and (max-width: 767px) {
   .l-page-albums {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
   }
-  
+
   .l-page-auth {
     display: flex;
     flex-direction: column;
-
   }
 
   .l-picture {
     order: 1;
-
   }
 
   .l-form {
@@ -73,3 +62,5 @@
     margin-top: 1.5rem;
   }
 }
+
+/*# sourceMappingURL=pages.css.map */

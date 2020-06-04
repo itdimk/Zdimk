@@ -1,0 +1,23 @@
+@using Zdimk.Abstractions.Dtos
+
+<div class="l-albums-grid">
+    @if (Pictures != null)
+    {
+        @foreach (var picture in Pictures)
+        {
+            <div class="album-card">
+                <div class="album-info">
+                    <p class="name">@picture.Name</p>
+                    <p class="description">@picture.Description</p>
+                </div>
+                <img class="album-cover" src=@picture.Url/>
+            </div>
+        }
+    }
+</div>
+
+@code {
+
+    [Parameter] public IEnumerable<PictureDto> Pictures { get; set; }
+
+}

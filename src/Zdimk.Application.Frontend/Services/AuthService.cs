@@ -53,7 +53,12 @@ namespace Zdimk.Application.Frontend.Services
 
         public async Task<ClaimsPrincipal> GetAuthenticatedUserAsync()
         {
-            var accessToken = new JwtSecurityToken(await _localStorage.GetAccessTokenAsync());
+            string encodedToken = await _localStorage.GetAccessTokenAsync();
+
+            if (string.IsNullOrWhiteSpace(encodedToken))
+                return null;
+
+            var accessToken = new JwtSecurityToken(encodedToken);
 
             if (!VerifyTokenLifetime(accessToken))
             {
@@ -67,6 +72,7 @@ namespace Zdimk.Application.Frontend.Services
                 else
                     return null;
             }
+
 
             string userId = accessToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             string userName = accessToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;

@@ -10,6 +10,8 @@
 @import "modules/navbar.css";
 @import "modules/page-auth.css";
 @import "modules/album-card.css";
+@import "modules/create-album-modal.css";
+@import "modules/page-upload.css";
 
 #blazor-error-ui {
     background: lightyellow;

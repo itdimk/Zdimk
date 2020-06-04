@@ -1,0 +1,30 @@
+@using Zdimk.Application.Frontend.Services
+@using MediatR
+@inject IAuthService Auth
+@inject IMediator Mediator
+
+<div class="centered-screen modal @IsVisibleCss">
+    <div class="block create-album-block">
+        <div class="block-header">
+            Create Album
+
+            <div class="block-header-button-list">
+                <span class="close-icon block-header-button icon-only" @onclick=Hide/>
+            </div>
+        </div>
+        <div class="block-body">
+            <form class="create-album-form">
+                <label>Name</label>
+                <input type="text" @bind=Command.Name/>
+
+                <label>Description</label>
+                <input type="text" @bind=Command.Description/>
+
+                <ul class="button-list">
+                    <input type="button" value="OK" @onclick=OnSubmit/>
+                    <input type="button" value="Cancel" @onclick=Hide/>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

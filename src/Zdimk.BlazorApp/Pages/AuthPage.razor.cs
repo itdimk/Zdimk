@@ -36,11 +36,14 @@ namespace Zdimk.BlazorApp.Pages
 
             IsWorking = false;
             if (result)
+            {
                 NavManager.NavigateTo("/");
+                StateHasChanged();
+            }
             else
             {
                 IsInvalidData = true;
-                StateHasChanged(); // TODO: inclute to getter
+                StateHasChanged(); // TODO: include to getter
             }
         }
 

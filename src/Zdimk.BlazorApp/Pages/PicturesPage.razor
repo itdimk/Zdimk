@@ -1,23 +1,24 @@
-@page "/"
+@page "/albums/{AlbumId}"
+
 @using MediatR
 @using Zdimk.Application.Frontend.Services
 @inject IMediator Mediator
 @inject IAuthService Auth
 @inject  IJSRuntime JsRuntime
+@inject  NavigationManager NavManager
 
-<CreateAlbumModal IsVisible=ShowCreateAlbumModalToggle Hide=HideCreateAlbum AlbumCreated=OnAlbumCreated/>
 
 <div class="l-page-albums">
-    <div class="l-albums albums-grid">
+    <div class="l-pictures pictures-grid">
         <div class="block">
             <div class="block-header">
-                Albums
+                Pictures
                 <div class="block-header-button-list">
-                    <span class="block-header-button icon-only add-icon" @onclick=ShowCreateAlbum></span>
+                    <span class="block-header-button icon-only add-icon" @onclick="UploadPictureClicked" ></span>
                 </div>
             </div>
             <div class="block-body">
-                <AlbumsGrid Albums=Albums/>
+                <PicturesGrid Pictures=Pictures/>
             </div>
         </div>
 

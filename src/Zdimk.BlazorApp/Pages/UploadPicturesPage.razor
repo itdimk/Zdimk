@@ -1,0 +1,24 @@
+@page "/albums/{AlbumId}/upload"
+@using MediatR
+@inject IJSRuntime JsInterop
+@inject IMediator Mediator
+
+<div class="l-page-upload">
+    <div class="block">
+        <div class="block-header">
+            <p> Upload pictures</p>
+        </div>
+
+        <div class="block-body">
+
+            <div class="upload-first-image @ShowBigUploadLinkCss">
+                <div class="upload-image">
+                    <InputFile id="upload-image" multiple OnChange=OnUploadedFilesChanged/>
+                </div>
+            </div>
+            
+             <PicturesGrid Pictures=this.Pictures/>
+        </div>
+       
+    </div>
+</div>

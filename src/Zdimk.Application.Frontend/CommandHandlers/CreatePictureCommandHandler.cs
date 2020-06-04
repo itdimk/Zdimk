@@ -36,7 +36,7 @@ namespace Zdimk.Application.Frontend.CommandHandlers
 
             var multipart = await CreateMultipartFormDataContent(request, cancellationToken);
 
-            HttpRequestMessage requestMessage = CreateRequestMessage(requestUrl, multipart, null);
+            HttpRequestMessage requestMessage = CreateRequestMessage(requestUrl, multipart, authHeader);
             HttpResponseMessage responseMessage = await _httpClient.SendAsync(requestMessage, cancellationToken);
 
             responseMessage.EnsureSuccessStatusCode();

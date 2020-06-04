@@ -1,0 +1,19 @@
+.create-album-block {
+  border-radius: 1rem;
+  max-width: 28rem;
+  width: 100%;
+  .create-album-form {
+   
+
+    .button-list {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      
+      & > * {
+        margin: 1rem 0.5rem;
+       
+      }
+    }
+  }
+}

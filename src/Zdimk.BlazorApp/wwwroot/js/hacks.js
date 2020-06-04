@@ -1,5 +1,8 @@
 ﻿function invokeClickFor(elementId) {
-    document.getElementById(elementId).click();
+    let el = document.getElementById(elementId);
+
+    let event = new Event("click");
+    alert(el.dispatchEvent(event));
 }
 
 function RegisterScrollTracking(dotnetHelper, callbackName) {

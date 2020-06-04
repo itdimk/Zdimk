@@ -87,24 +87,28 @@ body {
   }
 }
 input[type=text], input[type=password] {
+  border-radius: 0.35rem;
   display: block;
   outline: none;
   border: 1px solid #d7d7d7;
-  margin: 1rem 0.5rem;
+  margin: 1rem 0;
   background: white;
   padding: 0.2rem 0.5rem;
+  width: 100%;
 }
 input[type=text]:focus, input[type=text]:hover, input[type=password]:focus, input[type=password]:hover {
-  border: 1px solid #4686f8;
+  box-shadow: #4686f8 0 0 2px;
 }
 input[type=button] {
+  border-radius: 0.35rem;
   display: inline-block;
   background: transparent;
   border: 1px solid #CCCCCC;
-  padding: 0.3rem 0.5rem;
+  padding: 0.2rem 0.9rem;
   cursor: pointer;
   margin: 0.2rem;
   transition: background-color 0.4s ease;
+  outline: none;
 }
 input[type=button]:hover {
   background-color: #edeef0;
@@ -169,6 +173,11 @@ img {
   top: 0;
   left: 0;
   position: absolute;
+}
+
+.modal {
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 8;
 }
 
 .background-image {

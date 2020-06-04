@@ -1,7 +1,3 @@
-.auth-form {
-  transition: all 0.5s ease;
-}
-
 .auth-form.is-working {
   color: transparent;
 }

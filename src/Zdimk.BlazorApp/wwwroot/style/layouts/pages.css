@@ -4,14 +4,17 @@
   margin: 1rem;
   grid-template-columns: 2fr minmax(15rem, 1fr);
 }
-.l-page-albums .l-albums-grid {
+
+.l-albums-grid {
   display: grid;
   grid-gap: 3rem;
   grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
 }
 
-.l-page-pictures {
-  margin: 1rem;
+.l-picture-grid {
+  display: grid;
+  grid-gap: 3rem;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
 }
 
 .l-page-upload {

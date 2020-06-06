@@ -11,7 +11,15 @@
                     <p class="description">@album.Description</p>
                 </div>
                 <a href="/albums/@album.Id.ToString()">
-                    <img class="album-cover" src="https://i.pinimg.com/236x/25/a1/87/25a187e4be20a2416019545dfabf449e--cat-houses-persian-cats.jpg"/>
+                    @if (!string.IsNullOrEmpty(album.CoverUrl))
+                    {
+                        <img class="album-cover" src=@album.CoverUrl/>
+                    }
+                    else
+                    {
+                         <img class="album-cover" src="/style/images/photo.svg"/>
+                    }
+                  
                 </a>
             </div>
         }

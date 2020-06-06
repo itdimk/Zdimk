@@ -51,7 +51,7 @@ namespace Zdimk.BlazorApp.Pages
             {
                 AlbumId = AlbumGuid,
                 Offset = _currentOffset,
-                Count = 10,
+                Count = 30,
             };
         }
 

@@ -12,6 +12,7 @@
 @import "modules/album-card.css";
 @import "modules/create-album-modal.css";
 @import "modules/page-upload.css";
+@import "modules/tooltips.css";
 
 #blazor-error-ui {
     background: lightyellow;

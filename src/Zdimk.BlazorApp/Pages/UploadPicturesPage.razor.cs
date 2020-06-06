@@ -32,11 +32,6 @@ namespace Zdimk.BlazorApp.Pages
             }
         }
 
-        private async void OpenFileDialog()
-        {
-            await JsInterop.InvokeVoidAsync("invokeClickFor", "upload-image");
-        }
-
         private async Task OnUploadedFilesChanged(IFileListEntry[] arg)
         {
            

@@ -35,14 +35,24 @@ namespace Zdimk.Application.CommandHandlers
                 AlbumId = request.AlbumId,
             };
 
-            
+
             using (Stream source = request.PictureFile.OpenReadStream())
                 await _pictureService.SaveToContentFolderAsync(source, picture.Id, picture.Extension);
 
             await _dbContext.Pictures.AddAsync(picture, cancellationToken);
+           
+            await SetDefaultAlbumCoverCoverIfRequiredAsync(picture.AlbumId, _pictureService.GetPictureUrl(picture.Id,
+                picture.Extension));
             await _dbContext.SaveChangesAsync(cancellationToken);
-            
             return picture.ToPictureDto(_pictureService.GetPictureUrl(picture.Id, picture.Extension));
+        }
+
+        private async Task SetDefaultAlbumCoverCoverIfRequiredAsync(Guid albumId, string coverUrl)
+        {
+            var album = await _dbContext.Albums.FindAsync(albumId);
+            
+            if(string.IsNullOrEmpty(album.CoverUrl))
+                album.CoverUrl = coverUrl;
         }
     }
 }

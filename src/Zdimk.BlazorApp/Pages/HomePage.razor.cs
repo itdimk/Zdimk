@@ -58,7 +58,7 @@ namespace Zdimk.BlazorApp.Pages
                 return new GetAlbumsQuery
                 {
                     UserId = Guid.Parse(user.FindFirstValue(ClaimTypes.NameIdentifier)),
-                    Count = 50,
+                    Count = 30,
                     Offset = _currentOffset,
                 };
             }

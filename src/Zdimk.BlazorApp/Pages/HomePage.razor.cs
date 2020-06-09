@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using Zdimk.Abstractions.Commands;
 using Zdimk.Abstractions.Dtos;
 using Zdimk.Abstractions.Queries;
 using Zdimk.BlazorApp.Shared;
@@ -13,6 +14,7 @@ namespace Zdimk.BlazorApp.Pages
 {
     public partial class HomePage
     {
+        private bool EditAlbums { get; set; }
         private bool ShowCreateAlbumModalToggle = false;
         private List<AlbumDto> Albums { get; } = new List<AlbumDto>();
         private DotNetObjectReference<HomePage> _objRef;
@@ -84,6 +86,16 @@ namespace Zdimk.BlazorApp.Pages
             }
         }
 
+        private void DeleteAlbum(AlbumDto album)
+        {
+            var command = new DeleteAlbumCommand
+            {
+                AlbumId = album.Id
+            };
+            Mediator.Send(command);
+            Albums.Remove(album);
+            StateHasChanged();
+        }
 
         public void Dispose()
         {
@@ -93,6 +105,12 @@ namespace Zdimk.BlazorApp.Pages
         private void OnAlbumCreated(AlbumDto album)
         {
             Albums.Add(album);
+            StateHasChanged();
+        }
+
+        private void ToggleIsEditMode()
+        {
+            EditAlbums = !EditAlbums;
             StateHasChanged();
         }
     }

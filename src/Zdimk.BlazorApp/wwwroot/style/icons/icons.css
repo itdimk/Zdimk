@@ -10,4 +10,10 @@
   background-repeat: no-repeat;
 }
 
+.pencil-icon {
+  background-image: url("../icons/pen.svg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
 /*# sourceMappingURL=icons.css.map */

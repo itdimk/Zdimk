@@ -43,5 +43,9 @@ namespace Zdimk.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<IEnumerable<TagDto>>> GetTags(GetTagsQuery query)
             => Ok(await _mediator.Send(query));
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteAlbum(DeleteAlbumCommand command)
+            => Ok(await _mediator.Send(command));
     }
 }

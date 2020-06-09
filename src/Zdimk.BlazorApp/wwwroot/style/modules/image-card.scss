@@ -1,0 +1,65 @@
+﻿@import "../variables";
+
+.image-card {
+
+  position: relative;
+  transition: margin duration(hover-upscaling) ease;
+  cursor: pointer;
+
+  &:not(.is-editable):hover {
+    margin: -1rem;
+  }
+
+  &:not(.is-editable):hover .image-info .description {
+    font-size: 1rem;
+  }
+
+  &:not(.is-editable):hover .image-info .name {
+
+  }
+
+
+  &:not(.is-editable) .edit-button-list {
+    display: none;
+  }
+
+  &.is-editable .edit-button-list {
+    position: absolute;
+    right: 0.1rem;
+    top: 0.1rem;
+    display: flex;
+    flex-direction: row-reverse;
+    height: 1rem;
+  }
+
+  &.is-editable .edit-button {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .image-info {
+  
+    position: absolute;
+    bottom: 0;
+    color: white;
+    background: color(bg-album-card-info);
+    width: 100%;
+
+    .name {
+
+
+      text-align: center;
+    }
+
+    .description {
+      text-overflow: ellipsis;
+      transition: font-size 0.2s ease;
+      font-size: 0;
+    }
+  }
+
+
+  .cover {
+    width: 100%;
+  }
+}

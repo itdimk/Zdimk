@@ -16,10 +16,13 @@
                     <span class="block-header-button icon-only add-icon tooltip" @onclick=ShowCreateAlbum>
                         <span class="tooltip-text">Create album</span>
                     </span>
+                    <span class="block-header-button icon-only pencil-icon tooltip" @onclick=ToggleIsEditMode>
+                        <span class="tooltip-text">Edit albums</span>
+                    </span>
                 </div>
             </div>
             <div class="block-body">
-                <AlbumsGrid Albums=Albums/>
+                <AlbumsGrid Albums=Albums DeleteAlbum=DeleteAlbum IsEditable=EditAlbums/>
             </div>
         </div>
 

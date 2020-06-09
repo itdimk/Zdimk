@@ -5,21 +5,26 @@
     {
         @foreach (var album in Albums)
         {
-            <div class="album-card">
-                <div class="album-info">
+            <div class="image-card @IsEditableCss">
+                <div class="edit-button-list">
+                    <span class="close-icon edit-button tooltip" @onclick="async () => await DeleteAlbum.InvokeAsync(album)">
+                          <span class="tooltip-text">Delete</span>
+                    </span>
+                </div>
+                <div class="image-info">
                     <p class="name">@album.Name</p>
                     <p class="description">@album.Description</p>
                 </div>
                 <a href="/albums/@album.Id.ToString()">
                     @if (!string.IsNullOrEmpty(album.CoverUrl))
                     {
-                        <img class="album-cover" src=@album.CoverUrl/>
+                        <img class="cover" src=@album.CoverUrl/>
                     }
                     else
                     {
-                         <img class="album-cover" src="/style/images/photo.svg"/>
+                        <img class="cover" src="/style/images/photo.svg"/>
                     }
-                  
+
                 </a>
             </div>
         }
@@ -29,6 +34,14 @@
 @code {
 
     [Parameter]
+    public EventCallback<AlbumDto> DeleteAlbum { get; set; }
+
+    [Parameter]
     public IEnumerable<AlbumDto> Albums { get; set; }
+
+    [Parameter]
+    public bool IsEditable { get; set; }
+
+    private string IsEditableCss => IsEditable ? "is-editable" : "";
 
 }

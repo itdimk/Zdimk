@@ -9,9 +9,7 @@ namespace Zdimk.BlazorApp.Pages
         private string Password { get; set; }
 
         private bool IsInvalidData { get; set; }
-        private bool IsWorking { get; set; }
         private string IsInvalidDataCss => IsInvalidData ? "is-invalid" : "";
-        private string IsWorkingCss => IsWorking ? "is-working" : "";
         
 
         private void ToggleIsInvalidData()
@@ -20,21 +18,13 @@ namespace Zdimk.BlazorApp.Pages
             StateHasChanged();
         }
         
-        private void ToggleIsWorking()
-        {
-            IsWorking = !IsWorking;
-            StateHasChanged();
-        }
 
         private async void OnSubmit()
         {
-            IsWorking = true;
             StateHasChanged();
             
             bool result = await Auth.SignInAsync(Login, Password);
 
-
-            IsWorking = false;
             if (result)
             {
                 NavManager.NavigateTo("/");

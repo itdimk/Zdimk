@@ -15,6 +15,11 @@ namespace Zdimk.BlazorApp.Pages
     {
         [Parameter] public string AlbumId { get; set; }
 
+        private int ProgressPercentage => (int)(100.0 * AlreadyUploaded / Math.Max(1, TotalFilesToUpload));
+
+        private int TotalFilesToUpload { get; set; } 
+
+        private int AlreadyUploaded { get; set; } 
         private bool IsFirstImageUploading { get; set; } = true;
 
         private string ShowBigUploadLinkCss => IsFirstImageUploading ? "" : "collapsed";
@@ -34,12 +39,14 @@ namespace Zdimk.BlazorApp.Pages
 
         private async Task OnUploadedFilesChanged(IFileListEntry[] arg)
         {
-           
+            TotalFilesToUpload += arg.Length;
+            
             foreach (IFileListEntry file in arg)
             {
                 IsFirstImageUploading = false;
                 CreatePictureCommand command = await CreateCommand(file);
                 Pictures.Add(await Mediator.Send(command));
+                AlreadyUploaded += 1;
                 StateHasChanged();
             }
         }

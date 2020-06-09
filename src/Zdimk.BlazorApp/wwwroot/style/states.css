@@ -1,7 +1,3 @@
-.auth-form.is-working {
-  color: transparent;
-}
-
 .auth-form.is-invalid input[type=text], .auth-form.is-invalid input[type=password] {
   background-color: lightcoral;
 }

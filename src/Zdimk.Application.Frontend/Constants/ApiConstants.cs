@@ -12,5 +12,6 @@
         public const string CreateImage = "Gallery/CreatePicture";
         public const string CreateAlbum = "Gallery/CreateAlbum";
         public const string ActivateRefreshToken = "/Auth/RegisterJwtRefreshToken";
+        public const string DeleteAlbum = "/Gallery/DeleteAlbum";
     }
 }

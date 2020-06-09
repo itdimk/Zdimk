@@ -5,13 +5,16 @@
     {
         @foreach (var picture in Pictures)
         {
-            <div class="album-card">
-                <div class="album-info">
+            <div class="image-card @IsEditableCss">
+                <div class="image-info">
                     <p class="name">@picture.Name</p>
                     <p class="description">@picture.Description</p>
                 </div>
-                <a href=@picture.Url>
-                    <img class="album-cover" src=@picture.Url/>
+                <div class="edit-button-list">
+                    <span class="close-icon" @onclick="async () => await DeleteImage.InvokeAsync(picture)"></span>
+                </div>
+                <a href=@picture.BigPictureUrl>
+                    <img class="cover" src=@picture.SmallPictureUrl/>
                 </a>
             </div>
         }
@@ -23,4 +26,12 @@
     [Parameter]
     public IEnumerable<PictureDto> Pictures { get; set; }
 
+
+    [Parameter]
+    public EventCallback<PictureDto> DeleteImage { get; set; }
+    
+    [Parameter]
+    public bool IsEditable { get; set; } = true;
+
+    private string IsEditableCss => IsEditable ? "is-editable" : "";
 }

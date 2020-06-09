@@ -53,13 +53,14 @@ namespace Zdimk.Application.Extensions
             };
         }
 
-        public static PictureDto ToPictureDto(this Picture picture, string url)
+        public static PictureDto ToPictureDto(this Picture picture, string bigPictureUrl, string smallPictureUrl)
         {
             return new PictureDto
             {
                 Id = picture.Id,
                 Name = picture.Name,
-                Url = url,
+                BigPictureUrl = bigPictureUrl,
+                SmallPictureUrl = smallPictureUrl,
                 Description = picture.Description,
                 Created = picture.Created,
                 AlbumId = picture.AlbumId,

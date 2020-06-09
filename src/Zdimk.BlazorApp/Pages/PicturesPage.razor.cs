@@ -73,6 +73,11 @@ namespace Zdimk.BlazorApp.Pages
             }
         }
 
+        private void DeletePicture(PictureDto picture)
+        {
+            
+        }
+
         private async void UploadPictureClicked()
         {
             NavManager.NavigateTo($"/albums/{AlbumId}/upload");

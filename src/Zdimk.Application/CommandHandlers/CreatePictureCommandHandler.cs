@@ -40,18 +40,19 @@ namespace Zdimk.Application.CommandHandlers
                 await _pictureService.SaveToContentFolderAsync(source, picture.Id, picture.Extension);
 
             await _dbContext.Pictures.AddAsync(picture, cancellationToken);
-           
-            await SetDefaultAlbumCoverCoverIfRequiredAsync(picture.AlbumId, _pictureService.GetPictureUrl(picture.Id,
+
+            await SetDefaultAlbumCoverCoverIfRequiredAsync(picture.AlbumId, _pictureService.GetSmallPictureUrl(picture.Id,
                 picture.Extension));
             await _dbContext.SaveChangesAsync(cancellationToken);
-            return picture.ToPictureDto(_pictureService.GetPictureUrl(picture.Id, picture.Extension));
+            return picture.ToPictureDto(_pictureService.GetBigPictureUrl(picture.Id, picture.Extension),
+                _pictureService.GetSmallPictureUrl(picture.Id, picture.Extension));
         }
 
         private async Task SetDefaultAlbumCoverCoverIfRequiredAsync(Guid albumId, string coverUrl)
         {
             var album = await _dbContext.Albums.FindAsync(albumId);
-            
-            if(string.IsNullOrEmpty(album.CoverUrl))
+
+            if (string.IsNullOrEmpty(album.CoverUrl))
                 album.CoverUrl = coverUrl;
         }
     }

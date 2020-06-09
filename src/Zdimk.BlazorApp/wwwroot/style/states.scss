@@ -1,12 +1,6 @@
 ﻿@import "variables";
 
 
-
-
-.auth-form.is-working {
-   color: transparent;
-}
-
 .auth-form.is-invalid {
   input[type="text"], input[type="password"] {
     background-color: lightcoral;
@@ -21,6 +15,10 @@
   .navbar.is-collapsed {
     margin-right: -100vw;
   }
+}
+
+.image-card .is-editable {
+  
 }
 
 

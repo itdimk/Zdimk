@@ -1,0 +1,46 @@
+.image-card {
+  position: relative;
+  transition: margin 0.3s ease;
+  cursor: pointer;
+}
+.image-card:not(.is-editable):hover {
+  margin: -1rem;
+}
+.image-card:not(.is-editable):hover .image-info .description {
+  font-size: 1rem;
+}
+.image-card:not(.is-editable) .edit-button-list {
+  display: none;
+}
+.image-card.is-editable .edit-button-list {
+  position: absolute;
+  right: 0.1rem;
+  top: 0.1rem;
+  display: flex;
+  flex-direction: row-reverse;
+  height: 1rem;
+}
+.image-card.is-editable .edit-button {
+  width: 1rem;
+  height: 1rem;
+}
+.image-card .image-info {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+.image-card .image-info .name {
+  text-align: center;
+}
+.image-card .image-info .description {
+  text-overflow: ellipsis;
+  transition: font-size 0.2s ease;
+  font-size: 0;
+}
+.image-card .cover {
+  width: 100%;
+}
+
+/*# sourceMappingURL=image-card.css.map */

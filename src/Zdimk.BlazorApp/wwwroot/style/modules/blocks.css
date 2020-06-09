@@ -32,9 +32,6 @@
   width: 1.4rem;
   margin-right: 0.3rem;
 }
-.block .block-header .block-header-button:hover {
-  background-color: #DDDDDD;
-}
 .block .block-body {
   display: flex;
   flex-direction: column;
